@@ -1,0 +1,17 @@
+extends ../../layout/admin
+
+block content
+    table.table
+        thead
+            tr
+                th Email
+                th 店名
+                th 手机
+                th 入驻时间
+        tbody
+            each item in stores
+                tr
+                    td= item.email
+                    td= item.name
+                    td= item.phone
+                    td= moment(item.meta.createAt).format('YYYY/MM/DD')

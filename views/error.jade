@@ -1,0 +1,7 @@
+extends ./layout/student
+
+block content
+    a(onClick="javascript :history.back(-1);") 返回上一页
+    h1= message
+    h2= error.status
+    pre #{error.stack}

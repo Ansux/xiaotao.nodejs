@@ -1,0 +1,22 @@
+extends ../../layout/store
+
+block content
+    a(href="/store/product/create") 发布商品
+    table.table
+        thead
+            tr
+                th 商品
+                th 库存
+                th 销量
+                th 上架
+                th 删除
+                th 创建时间
+        tbody
+            each item in products
+                tr
+                    td= item.name
+                    td= item.stock
+                    td= item.sales
+                    td= item.isOnsale
+                    td= item.isDelete
+                    td= moment(item.meta.createAt).format('YYYY/MM/DD')

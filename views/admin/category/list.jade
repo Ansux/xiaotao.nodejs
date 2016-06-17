@@ -1,0 +1,14 @@
+extends ../../layout/admin
+
+block content
+    a(href="/admin/category/create") 添加分类
+    table.table
+        thead
+            tr
+                th 名称
+                th 创建时间
+        tbody
+            each item in categories
+                tr
+                    td= item.name
+                    td= moment(item.updateAt).format('YYYY/MM/DD')

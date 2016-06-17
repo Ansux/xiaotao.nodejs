@@ -1,0 +1,46 @@
+extends ../layout/store
+
+block content
+    .panel.panel-default
+        .panel-heading 商家入驻
+        .panel-body
+            form.form-horizontal(method='post',action='/store/signup')
+                .form-group
+                    label.col-xs-2 Email
+                    .col-xs-10
+                        input.form-control(type='email',name='store[email]')
+                .form-group
+                    label.col-xs-2 密码
+                    .col-xs-10
+                        input.form-control(type='password',name='store[pwd]')
+                .form-group
+                    label.col-xs-2 确认密码
+                    .col-xs-10
+                        input.form-control(type='password',name='pwd2')
+                .form-group
+                    label.col-xs-2 店铺名称
+                    .col-xs-10
+                        input.form-control(type='text',name='store[name]')
+                .form-group
+                    label.col-xs-2 营业执照
+                    .col-xs-10
+                        input.form-control(type='url',name='store[license]')
+                .form-group
+                    label.col-xs-2 店主
+                    .col-xs-10
+                        input.form-control(type='text',name='store[owner]')
+                .form-group
+                    label.col-xs-2 店主身份证号码
+                    .col-xs-10
+                        input.form-control(type='text',name='store[ownerId]')
+                .form-group
+                    label.col-xs-2 店主身份证件
+                    .col-xs-10
+                        input.form-control(type='url',name='store[ownerIdCard]')
+                .form-group
+                    label.col-xs-2 联系电话
+                    .col-xs-10
+                        input.form-control(type='tel',name='store[phone]')
+                .form-group
+                    .col-xs-offset-2.col-xs-10
+                        button.btn.btn-primary(type='submit') 提交资料

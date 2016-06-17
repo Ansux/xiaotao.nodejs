@@ -1,0 +1,60 @@
+{
+    "_id": "575ec4606d7ad854006ea7e0"
+    , "student": "5759903caea31184256305cd"
+    , "__v": 13
+    , "meta": {
+        "createAt": "2016-06-13T14:34:08.700Z"
+        , "updateAt": "2016-06-13T16:39:10.678Z"
+    }
+    , "stores": [{
+        "store": {
+            "_id": "575ec4016d7ad854006ea7df"
+            , "name": "长江新世纪"
+        }
+        , "_id": "575ee1a9f15848f80f39c7f3"
+        , "prolist": [{
+            "product": {
+                "_id": "575ed54ef0e2b7fc10151054"
+                , "name": "北京长江新世纪 习惯就好？珍藏版/田朴"
+                , "price": 36
+                , "oriImg": "http://img13.360buyimg.com/n1/s200x200_jfs/t2425/220/1183585761/63205/daa0561d/5649a61aNffdba426.jpg"
+            }
+            , "_id": "575ee1aef15848f80f39c7f5"
+            , "number": 1
+        }, {
+            "product": {
+                "_id": "575ed53af0e2b7fc10151053"
+                , "name": "北京长江新世纪 京城名医 "
+                , "price": 35
+                , "oriImg": "http://img13.360buyimg.com/n1/s200x200_jfs/t1996/153/2079585015/80586/bc1787c/569cbb99N6095a5e4.jpg"
+            }
+            , "_id": "575ee1a9f15848f80f39c7f4"
+            , "number": 1
+        }]
+    }, {
+        "store": {
+            "_id": "575aaefdfcb450203d26a2f1"
+            , "name": "三只松鼠"
+        }
+        , "_id": "575ed5c9f0e2b7fc1015105b"
+        , "prolist": [{
+            "product": {
+                "_id": "575ec3276d7ad854006ea7d9"
+                , "name": "【三只松鼠_碧根果210gx2袋】零食坚果炒货山核桃长寿果干果奶油味 "
+                , "price": 36
+                , "oriImg": "http://img14.360buyimg.com/n7/jfs/t1975/318/1840269029/444741/600f548/567a7a04Nd687a145.jpg"
+            }
+            , "_id": "575ed7a8f0e2b7fc1015105d"
+            , "number": 1
+        }, {
+            "product": {
+                "_id": "575ec33a6d7ad854006ea7da"
+                , "name": "【三只松鼠_开口松子218gx2袋】零食坚果特产炒货东北红松子原味 "
+                , "price": 45
+                , "oriImg": "http://img12.360buyimg.com/n7/jfs/t1930/161/967474900/475541/124668ca/5636c343Na3f117ea.jpg"
+            }
+            , "_id": "575ed5c9f0e2b7fc1015105c"
+            , "number": 1
+        }]
+    }]
+}

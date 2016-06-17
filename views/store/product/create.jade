@@ -1,0 +1,38 @@
+extends ../../layout/store
+
+block content
+    .panel.panel-default
+        .panel-heading 发布商品
+        .panel-body
+            form.form-horizontal(method='post',action='/store/product/create')
+                .form-group
+                    label.col-xs-2 名称
+                    .col-xs-10
+                        input.form-control(type='text',name='product[name]')
+                .form-group
+                    label.col-xs-2 单价
+                    .col-xs-10
+                        input.form-control(type='number',name='product[price]')
+                .form-group
+                    label.col-xs-2 库存
+                    .col-xs-10
+                        input.form-control(type='number',name='product[stock]')
+                .form-group
+                    label.col-xs-2 图片
+                    .col-xs-10
+                        input.form-control(type='url',name='product[oriImg]')
+                .form-group
+                    label.col-xs-2 分类
+                    .col-xs-10
+                        select.form-control(name='product[category]')
+                            each cate in categories
+                                option(value=cate._id)= cate.name
+                .form-group
+                    .col-xs-offset-2.col-xs-10
+                        .checkbox
+                            label
+                                input(type='checkbox',name='product[isOnsale]')
+                                | 上架
+                .form-group
+                    .col-xs-offset-2.col-xs-10
+                        button.btn.btn-primary(type='submit') 发布商品

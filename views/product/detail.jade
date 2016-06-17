@@ -1,0 +1,24 @@
+extends ../layout/student
+
+block content
+    .g-intro.row
+        .col-xs-4.focus
+            a(href="/product/detail/#{product._id}")
+                img(src=product.oriImg,alt=product.name)
+        .col-xs-8.info-items
+            h1.item-name
+                | #{product.name}
+            .item-price
+                .title 校淘价
+                .right.price= product.price
+            form.form-horizontal(method='post',action='/student/cart')
+                .item-sales
+                    .title 销量
+                    .right.sales= product.sales
+                .item-number
+                    .title 数量
+                    .right.number
+                        input.form-control(type='number',min='1',name='number',value='1')
+                .item-buttom
+                    input(type='hidden',name='proId',value=product._id)
+                    button.btn.btn-danger(type='submit') 加入购物车

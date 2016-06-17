@@ -1,0 +1,9 @@
+{
+    "_id": ObjectId("575ec0d66b1eea800c020242")
+    , "name": "食品"
+    , "createAt": ISODate("2016-06-13T14:16:30.539Z")
+}, {
+    "_id": ObjectId("575ec0db6b1eea800c020243")
+    , "name": "图书"
+    , "createAt": ISODate("2016-06-13T14:16:30.539Z")
+}

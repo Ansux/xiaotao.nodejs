@@ -1,0 +1,30 @@
+extends ../layout
+
+block content
+    .container
+        .panel.panel-default
+            .panel-heading 更新学生 (#{student.email})
+            .panel-body
+                form.form-horizontal(method='post',action='/student/edit')
+                    input(type='hidden',name='student[_id]',value=student._id)
+                    .form-group
+                        label.col-xs-2 性别
+                        .col-xs-10
+                            label.radio-inline
+                                input(type='radio',name='student[sex]',value='男',checked=student.sex=='男')
+                                | 男
+                            label.radio-inline
+                                input(type='radio',name='student[sex]',value='女',checked=student.sex=='女')
+                                | 女
+                    .form-group
+                        label.col-xs-2 头像
+                        .col-xs-10
+                            input.form-control(type="url",name="student[avatar]",value=student.avatar)
+                    .form-group
+                        label.col-xs-2 手机
+                        .col-xs-10
+                            input.form-control(type='tel',name='student[phone]',value=student.phone)
+                    .form-group
+                        .col-xs-offset-2.col-xs-10
+                            button.btn.btn-primary(type='submit') 修改密码
+                

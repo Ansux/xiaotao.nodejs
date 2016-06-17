@@ -1,0 +1,51 @@
+extends ../layout/student
+
+block content
+    .cart-wrap(ng-app='myCart',ng-controller='myCart')
+        .header
+            .row
+                .col-xs-7
+                    input(type='checkbox',ng-checked='stores.checked',ng-click="check($event,stores,'all')") 
+                    |    全部商品
+                .col-xs-1 单价(元)
+                .col-xs-2 数量
+                .col-xs-1 金额(元)
+                .col-xs-1 操作
+        form(method='post',action='/student/settle')
+            .store-item(ng-repeat='item in stores')
+                .info
+                    input(type='checkbox',ng-checked='item.checked',ng-click="check($event,item,'store')") 
+                    | 店铺：
+                    span(ng-bind="item.store.name")
+                .pro-items
+                    .item.row(ng-repeat='cart in item.prolist',ng-class="{'checked':cart.checked}")
+                        .col-xs-7.pro-info
+                            .fixed
+                                input(type='checkbox',ng-checked='cart.checked',ng-click="check($event,cart,'one')")
+                                img(ng-src="{{cart.product.oriImg}}", width="30", alt="{{cart.product.name}}")
+                            .right
+                                a(target="_blank",href="/product/detail/{{cart.product._id}}",ng-bind="cart.product.name")
+                        .col-xs-1(ng-bind="cart.product.price")
+                        .col-xs-2
+                            .number-control.clearfix
+                                a(ng-click="cartNum(cart,'minus')") -
+                                input(type='number',ng-model='cart.number',ng-change='changeNum(cart)')
+                                a(ng-click="cartNum(cart,'plus')") +
+                        .col-xs-1(ng-bind="cart.number*cart.product.price")
+                        .col-xs-1
+                            a(ng-click="delete(item,cart)") 删除
+            .settle
+                .account
+                    span
+                        | 总计：
+                        em.money(ng-bind-template='¥{{account()}}')
+                    span
+                        | 已选中(商品)：
+                        em(ng-bind='items')
+                        |  个
+                .btn-settle
+                    input(type='hidden',name='products',value='{{products}}')
+                    button(type='submit',ng-disabled="!settle") 立即结算
+block scripts
+    script(src='/javascripts/angular.min.js')
+    script(src='/javascripts/ng.js')

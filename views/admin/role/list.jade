@@ -1,0 +1,18 @@
+extends ../../layout/admin
+
+block content
+  .container
+    a(href="/admin/role/create") 添加角色
+    table.table
+        thead
+            tr
+                th 名称
+                th 操作
+        tbody
+            each item in roles
+                tr
+                    td= item.name
+                    td
+                        a(target='_blank',href='/admin/role/detail/#{item._id}') 查看
+                        span /
+                        a(target='_blank',href='/admin/role/edit/#{item._id}') 编辑

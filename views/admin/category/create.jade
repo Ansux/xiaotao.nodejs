@@ -1,0 +1,14 @@
+extends ../../layout/admin
+
+block content
+    .panel.panel-default
+        .panel-heading 添加分类
+        .panel-body
+            form.form-horizontal(method='post',action='/admin/category/create')
+                .form-group
+                    label.col-xs-2 名称
+                    .col-xs-10
+                        input.form-control(type='text',name='category[name]')
+                .form-group
+                    .col-xs-offset-2.col-xs-10
+                        button.btn.btn-primary(type='submit') 提交

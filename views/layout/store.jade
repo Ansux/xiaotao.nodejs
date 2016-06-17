@@ -1,0 +1,59 @@
+doctype html
+html
+  head
+    meta(name='viewport',content='width=device-width, initial-scale=1')
+    title= title
+    link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    nav.navbar.navbar-default
+        .container
+            .navbar-header
+                button.navbar-toggle.collapsed(type='button',data-toggle='collapse',data-target='#navbar')
+                    span.sr-only
+                    span.icon-bar
+                    span.icon-bar
+                    span.icon-bar
+                a.navbar-brand 校淘网
+            .collapse.navbar-collapse#navbar
+                ul.nav.navbar-nav
+                    li
+                        a(href='/') 首页
+                    li(data-id='prolist')
+                        a(href='/store/prolist') 商品列表
+                    li(data-id='orders')
+                        a(href='/store/orders') 订单列表
+                    li(data-id='setting')
+                        a(href='/store/setting') 店铺装修
+                ul.nav.navbar-nav.navbar-right
+                    li
+                        a.dropdown-toggle(data-toggle='dropdown',aria-haspopup='true',aria-expanded='false')
+                                    | 快速导航
+                                    span.caret
+                                ul.dropdown-menu
+                                    li
+                                        a(href='/') 学生
+                                    li
+                                        a(href='/store') 店铺
+                                    li
+                                        a(href='/admin') 管理员
+                    - if(!nowstore) {
+                        li
+                            a(href='/store/signin') 登录
+                        li
+                            a(href="/store/signup") 注册
+                    - } else {
+                        li.dropdown
+                            a.dropdown-toggle(data-toggle='dropdown',aria-haspopup='true',aria-expanded='false')
+                                | #{nowstore.email} 
+                                span.caret
+                            ul.dropdown-menu
+                                li
+                                    a(href='/store/signout') 登出
+                    - }
+    section.render-body
+        .container
+            block content
+    script(src='/jquery/dist/jquery.min.js')
+    script(src='/bootstrap/dist/js/bootstrap.min.js')
+    script(src='/javascripts/student.js')

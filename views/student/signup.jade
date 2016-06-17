@@ -1,0 +1,22 @@
+extends ../layout/student
+
+block content
+    .panel.panel-default
+        .panel-heading 学生注册
+        .panel-body
+            form.form-horizontal(method='post',action='/student/signup')
+                .form-group
+                    label.col-xs-2 账号
+                    .col-xs-10
+                        input.form-control(type='email',name='student[email]')
+                .form-group
+                    label.col-xs-2 密码
+                    .col-xs-10
+                        input.form-control(type='password',name='student[pwd]')
+                .form-group
+                    label.col-xs-2 确认密码
+                    .col-xs-10
+                        input.form-control(type='password',name='pwd2')
+                .form-group
+                    .col-xs-offset-2.col-xs-10
+                        button.btn.btn-primary(type='submit') 立即注册

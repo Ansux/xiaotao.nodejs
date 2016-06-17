@@ -1,0 +1,61 @@
+doctype html
+html
+  head
+    meta(name='viewport',content='width=device-width, initial-scale=1')
+    title= title
+    link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    nav.navbar.navbar-default
+        .container
+            .navbar-header
+                button.navbar-toggle.collapsed(type='button',data-toggle='collapse',data-target='#navbar')
+                    span.sr-only
+                    span.icon-bar
+                    span.icon-bar
+                    span.icon-bar
+                a.navbar-brand 校淘网
+            .collapse.navbar-collapse#navbar
+                ul.nav.navbar-nav
+                    li
+                        a(href='/') 首页
+                    li(data-id='role')
+                        a(href='/admin/role') 角色
+                    li(data-id='student')
+                        a(href='/admin/student') 学生
+                    li(data-id='store')
+                        a(href='/admin/store') 店铺
+                    li(data-id='category')
+                        a(href='/admin/category') 分类
+                    li(data-id='category')
+                        a(href='/admin/product') 商品
+                ul.nav.navbar-nav.navbar-right
+                    li
+                        a.dropdown-toggle(data-toggle='dropdown',aria-haspopup='true',aria-expanded='false')
+                                    | 快速导航
+                                    span.caret
+                                ul.dropdown-menu
+                                    li
+                                        a(href='/') 学生
+                                    li
+                                        a(href='/store') 店铺
+                                    li
+                                        a(href='/admin') 管理员
+                    - if(!nowadmin) {
+                        li
+                            a(href='/admin/signin') 登录
+                    - } else {
+                        li.dropdown
+                            a.dropdown-toggle(data-toggle='dropdown',aria-haspopup='true',aria-expanded='false')
+                                | #{nowadmin.email} 
+                                span.caret
+                            ul.dropdown-menu
+                                li
+                                    a(href='/admin/signout') 登出
+                    - }
+    .render-body
+        .container
+            block content
+    script(src='/jquery/dist/jquery.min.js')
+    script(src='/bootstrap/dist/js/bootstrap.min.js')
+    script(src='/javascripts/admin.js')

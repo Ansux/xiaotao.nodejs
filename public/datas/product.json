@@ -1,0 +1,182 @@
+{
+    "_id": ObjectId("575ec3276d7ad854006ea7d9")
+    , "sales": 0
+    , "isDelete": false
+    , "name": "【三只松鼠_碧根果210gx2袋】零食坚果炒货山核桃长寿果干果奶油味 "
+    , "price": 36
+    , "stock": 200
+    , "oriImg": "http://img14.360buyimg.com/n7/jfs/t1975/318/1840269029/444741/600f548/567a7a04Nd687a145.jpg"
+    , "category": ObjectId("575ec0d66b1eea800c020242")
+    , "isOnsale": true
+    , "store": ObjectId("575aaefdfcb450203d26a2f1")
+    , "meta": {
+        "createAt": ISODate("2016-06-13T14:28:55.505Z")
+        , "updateAt": ISODate("2016-06-13T14:28:55.505Z")
+    }
+}, {
+    "_id": ObjectId("575ec33a6d7ad854006ea7da")
+    , "sales": 0
+    , "isDelete": false
+    , "name": "【三只松鼠_开口松子218gx2袋】零食坚果特产炒货东北红松子原味 "
+    , "price": 45
+    , "stock": 200
+    , "oriImg": "http://img12.360buyimg.com/n7/jfs/t1930/161/967474900/475541/124668ca/5636c343Na3f117ea.jpg"
+    , "category": ObjectId("575ec0d66b1eea800c020242")
+    , "isOnsale": true
+    , "store": ObjectId("575aaefdfcb450203d26a2f1")
+    , "meta": {
+        "createAt": ISODate("2016-06-13T14:29:14.918Z")
+        , "updateAt": ISODate("2016-06-13T14:29:14.918Z")
+    }
+}, {
+    "_id": ObjectId("575ec3536d7ad854006ea7db")
+    , "sales": 0
+    , "isDelete": false
+    , "name": "【三只松鼠_坚果大礼包1528g】零食干果特产坚果礼盒坚果8袋装 F套餐 "
+    , "price": 118
+    , "stock": 200
+    , "oriImg": "http://img14.360buyimg.com/n7/jfs/t2797/312/918472188/323107/713d2ecd/572aba4dN807d70f4.jpg"
+    , "category": ObjectId("575ec0d66b1eea800c020242")
+    , "isOnsale": true
+    , "store": ObjectId("575aaefdfcb450203d26a2f1")
+    , "meta": {
+        "createAt": ISODate("2016-06-13T14:29:39.897Z")
+        , "updateAt": ISODate("2016-06-13T14:29:39.897Z")
+    }
+
+}, {
+    "_id": ObjectId("575ec3686d7ad854006ea7dc")
+    , "sales": 0
+    , "isDelete": false
+    , "name": "【三只松鼠_开心果225gx2袋】休闲零食坚果炒货干果原味无漂白 "
+    , "price": 60
+    , "stock": 200
+    , "oriImg": "http://img11.360buyimg.com/n7/jfs/t2005/129/971052802/383377/aec5119b/5636c347N54f02f8d.jpg"
+    , "category": ObjectId("575ec0d66b1eea800c020242")
+    , "isOnsale": true
+    , "store": ObjectId("575aaefdfcb450203d26a2f1")
+    , "meta": {
+        "createAt": ISODate("2016-06-13T14:30:00.860Z")
+        , "updateAt": ISODate("2016-06-13T14:30:00.860Z")
+    }
+}, {
+    "_id": ObjectId("575ec3836d7ad854006ea7dd")
+    , "sales": 0
+    , "isDelete": false
+    , "name": "三只松鼠 坚果炒货 休闲零食 开口松子218g/袋 "
+    , "price": 26
+    , "stock": 200
+    , "oriImg": "http://img11.360buyimg.com/n7/jfs/t1912/325/2139378791/396811/89d4dedb/56f0a0bbNf2984380.jpg"
+    , "category": ObjectId("575ec0d66b1eea800c020242")
+    , "isOnsale": true
+    , "store": ObjectId("575aaefdfcb450203d26a2f1")
+    , "meta": {
+        "createAt": ISODate("2016-06-13T14:30:27.480Z")
+        , "updateAt": ISODate("2016-06-13T14:30:27.480Z")
+    }
+}, {
+    "_id": ObjectId("575ec3976d7ad854006ea7de")
+    , "sales": 0
+    , "isDelete": false
+    , "name": "【三只松鼠_芒果干116gx3袋】休闲零食蜜饯果脯水果干 "
+    , "price": 30
+    , "stock": 200
+    , "oriImg": "http://img12.360buyimg.com/n7/jfs/t2224/205/996299148/358567/fe274959/56402f2fNf92fb279.jpg"
+    , "category": ObjectId("575ec0d66b1eea800c020242")
+    , "isOnsale": true
+    , "store": ObjectId("575aaefdfcb450203d26a2f1")
+    , "meta": {
+        "createAt": ISODate("2016-06-13T14:30:47.594Z")
+        , "updateAt": ISODate("2016-06-13T14:30:47.594Z")
+    }
+}, {
+    "_id": ObjectId("575ed53af0e2b7fc10151053")
+    , "sales": 0
+    , "isDelete": false
+    , "name": "北京长江新世纪 京城名医 "
+    , "price": 35
+    , "stock": 200
+    , "oriImg": "http://img13.360buyimg.com/n1/s200x200_jfs/t1996/153/2079585015/80586/bc1787c/569cbb99N6095a5e4.jpg"
+    , "category": ObjectId("575ec0db6b1eea800c020243")
+    , "isOnsale": true
+    , "store": ObjectId("575ec4016d7ad854006ea7df")
+    , "meta": {
+        "createAt": ISODate("2016-06-13T15:46:02.358Z")
+        , "updateAt": ISODate("2016-06-13T15:46:02.358Z")
+    }
+}, {
+    "_id": ObjectId("575ed54ef0e2b7fc10151054")
+    , "sales": 0
+    , "isDelete": false
+    , "name": "北京长江新世纪 习惯就好？珍藏版/田朴"
+    , "price": 36
+    , "stock": 200
+    , "oriImg": "http://img13.360buyimg.com/n1/s200x200_jfs/t2425/220/1183585761/63205/daa0561d/5649a61aNffdba426.jpg"
+    , "category": ObjectId("575ec0db6b1eea800c020243")
+    , "isOnsale": true
+    , "store": ObjectId("575ec4016d7ad854006ea7df")
+    , "meta": {
+        "createAt": ISODate("2016-06-13T15:46:22.583Z")
+        , "updateAt": ISODate("2016-06-13T15:46:22.583Z")
+    }
+}, {
+    "_id": ObjectId("575ed562f0e2b7fc10151055")
+    , "sales": 0
+    , "isDelete": false
+    , "name": "这些都是你给我的爱 "
+    , "price": 17
+    , "stock": 200
+    , "oriImg": "http://img13.360buyimg.com/n1/s200x200_jfs/t1141/81/671248069/102184/49f15b7a/55386987N8f9559d4.jpg"
+    , "category": ObjectId("575ec0db6b1eea800c020243")
+    , "isOnsale": true
+    , "store": ObjectId("575ec4016d7ad854006ea7df")
+    , "meta": {
+        "createAt": ISODate("2016-06-13T15:46:42.391Z")
+        , "updateAt": ISODate("2016-06-13T15:46:42.391Z")
+    }
+}, {
+    "_id": ObjectId("575ed579f0e2b7fc10151056")
+    , "sales": 0
+    , "isDelete": false
+    , "name": "白说（京东版本，随机附赠同封笔记本）"
+    , "price": 28
+    , "stock": 200
+    , "oriImg": "http://img11.360buyimg.com/n1/s200x200_jfs/t1786/23/1296563325/187338/9e7156c3/55e501bdN653abc71.jpg"
+    , "category": ObjectId("575ec0db6b1eea800c020243")
+    , "isOnsale": true
+    , "store": ObjectId("575ec4016d7ad854006ea7df")
+    , "meta": {
+        "createAt": ISODate("2016-06-13T15:47:05.403Z")
+        , "updateAt": ISODate("2016-06-13T15:47:05.403Z")
+    }
+}, {
+    "_id": ObjectId("575ed593f0e2b7fc10151057")
+    , "sales": 0
+    , "isDelete": false
+    , "name": "长江新世纪临界爵迹1郭敬明 "
+    , "price": 16
+    , "stock": 200
+    , "oriImg": "http://img12.360buyimg.com/n1/s200x200_jfs/t2677/212/1637201472/18437/29201e36/57455448Nf3a91159.jpg"
+    , "category": ObjectId("575ec0db6b1eea800c020243")
+    , "isOnsale": true
+    , "store": ObjectId("575ec4016d7ad854006ea7df")
+    , "meta": {
+        "createAt": ISODate("2016-06-13T15:47:31.027Z")
+        , "updateAt": ISODate("2016-06-13T15:47:31.027Z")
+    }
+}, {
+    "_id": ObjectId("575ed5aaf0e2b7fc10151058")
+    , "sales": 0
+    , "isDelete": false
+    , "name": "每个人站起来的方式，千姿百态"
+    , "price": 26
+    , "stock": 200
+    , "oriImg": "http://img14.360buyimg.com/n1/s200x200_jfs/t2110/331/2764334077/220340/8d648393/57189df2N23d36b8f.png"
+    , "category": ObjectId("575ec0db6b1eea800c020243")
+    , "isOnsale": true
+    , "store": ObjectId("575ec4016d7ad854006ea7df")
+    , "meta": {
+        "createAt": ISODate("2016-06-13T15:47:54.255Z")
+        , "updateAt": ISODate("2016-06-13T15:47:54.255Z")
+    }
+}

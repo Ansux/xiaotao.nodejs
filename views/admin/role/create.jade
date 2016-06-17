@@ -1,0 +1,12 @@
+extends ../../layout/admin
+
+block content
+    .container
+        form.form-horizontal(method='post',action='/admin/role/create')
+            .form-group
+                label.col-xs-2.control-label 角色名称
+                .col-xs-10
+                    input.form-control(type='text',name='role[name]')
+            .form-group
+                .col-xs-offset-2.col-xs-10
+                    button.btn.btn-default(type='submit') 提交
