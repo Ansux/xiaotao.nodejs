@@ -276,26 +276,11 @@ router.post('/ngcart', function (req, res) {
 router.post('/settle', function (req, res) {
     var carts = JSON.parse(req.body.products);
     var stores = [];
-    var eachCount = 0;
 
-    carts.forEach(function (v, k) {
-        Product.findById(v.product, function (err, pro) {
-            if (stores.length == 0) {
-                stores.push({
-                    store: pro.store
-                    , prolist: [{
-                        product: pro
-                        , number: v.number
-                    }]
-                });
-            } else {
-                var storeIndex = GetArrIndexById(stores, 's', pro.store._id);
-                if (storeIndex != -1) {
-                    stores[storeIndex].prolist.push({
-                        product: pro
-                        , number: v.number
-                    });
-                } else {
+    var promise = new Promise(function (resolve, reject) {
+        carts.forEach(function (v, k) {
+            Product.findById(v.product, function (err, pro) {
+                if (stores.length == 0) {
                     stores.push({
                         store: pro.store
                         , prolist: [{
@@ -303,23 +288,37 @@ router.post('/settle', function (req, res) {
                             , number: v.number
                         }]
                     });
+                } else {
+                    var storeIndex = GetArrIndexById(stores, 's', pro.store._id);
+                    if (storeIndex != -1) {
+                        stores[storeIndex].prolist.push({
+                            product: pro
+                            , number: v.number
+                        });
+                    } else {
+                        stores.push({
+                            store: pro.store
+                            , prolist: [{
+                                product: pro
+                                , number: v.number
+                        }]
+                        });
+                    }
                 }
-            }
-            eachCount += 1;
+                if (k == (carts.length - 1)) {
+                    resolve(stores)
+                }
+            });
         });
     });
 
-    var getData = setInterval(function () {
-        if (eachCount == carts.length) {
-            req.session.settle = stores;
-            res.render('./student/order/settle', {
-                title: '购物结算'
-                , stores: stores
-            });
-            clearInterval(getData);
-        }
-    }, 50);
-
+    promise.then(function (stores) {
+        req.session.settle = stores;
+        res.render('./student/order/settle', {
+            title: '购物结算'
+            , stores: stores
+        });
+    });
 });
 
 router.post('/order/create', function (req, res) {

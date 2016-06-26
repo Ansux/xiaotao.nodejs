@@ -1,22 +1,31 @@
 extends ../../layout/student
 
 block content
-    table.table
-        thead
-            tr
-                th 订单详情
-                th 收货人
-                th 金额
-                th 状态
-                th 操作
-        tbody
-            - orders
+    #orders
+        .row.header
+            .col-xs-6 订单详情
+            .col-xs-1 金额
+            .col-xs-1 收货人
+            .col-xs-2 状态
+            .col-xs-2 操作
+        .list
             each o in orders
-                tr
-                    td= moment(o.meta.createAt).format('YYYY/MM/DD h:mm:ss')
-                    td= o._id
-                    td
+                .row.o-item
+                    .o-info
+                        span.time= moment(o.meta.createAt).format('YYYY/MM/DD HH:mm:ss')
+                        span.oid 订单号：#{o._id}
                         a(href='',target='_blank')= o.store.name
-                each oi in o.oitems
-                    tr
-                        td= o.oitems
+                    .row.oi-info
+                        .col-xs-6
+                            each oi in o.oitems
+                                .p-info
+                                    a.img(href='',target='_blank')
+                                        img(width='60',src='#{oi.product.oriImg}')
+                                    .info
+                                        a(href='')= oi.product.name
+                                        span 单价(￥): #{oi.price}
+                                    .number x #{oi.number}
+                        .col-xs-1= o.amount
+                        .col-xs-1= o.receiver
+                        .col-xs-2= o.status
+                        .col-xs-2

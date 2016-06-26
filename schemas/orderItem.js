@@ -32,7 +32,7 @@ OrderitemSchema.statics = {
             })
             .populate('product', {
                 name: 1
-                , oriIme: 1
+                , oriImg: 1
             })
             .exec(callback);
     }

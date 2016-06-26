@@ -229,3 +229,70 @@
     font-weight: bold;
     margin-bottom: 10px;
 }
+
+
+/* orders */
+
+#orders {
+    padding: 15px;
+}
+
+#orders .time {
+    margin-right: 50px;
+}
+
+#orders .oid {
+    margin-right: 80px;
+}
+
+#orders .p-info {
+    position: relative;
+    border-bottom: solid 1px #eee;
+    padding: 15px 0;
+    border-right: solid 1px #eee;
+}
+
+#orders .p-info:last-child {
+    border-bottom: none;
+}
+
+#orders .p-info .img {
+    position: absolute;
+    left: 15px;
+}
+
+#orders .p-info .number {
+    position: absolute;
+    top: 15px;
+    right: 30px;
+}
+
+#orders .p-info .info {
+    margin-left: 85px;
+    min-height: 60px;
+    margin-right: 100px;
+}
+
+#orders .p-info .info a {
+    display: block;
+}
+
+#orders .header {
+    line-height: 2;
+    font-size: 14px;
+    font-weight: bold;
+    background: #efefef;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+}
+
+#orders .o-item {
+    margin-bottom: 15px;
+    border: solid 1px #eee;
+}
+
+#orders .o-info {
+    background: #efefef;
+    padding: 10px 15px;
+}
