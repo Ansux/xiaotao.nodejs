@@ -1,0 +1,61 @@
+extends ../layout/student
+
+block content
+    .wrap-addr(ng-app='myAddress',ng-controller='myAddress')
+        .panel.panel-default
+            .panel-heading 地址表单
+            .panel-body
+                form.form-horizontal(name='address',ng-submit='submit()')
+                    input(type='hidden',ng-model='addr._id')
+                    .form-group
+                        label.col-md-2.control-label 收货人
+                        .col-md-10
+                            input.form-control(ng-model='addr.receiver',required)
+                    .form-group
+                        label.col-md-2.control-label 区域
+                        .col-md-10
+                            select.form-control(ng-model='addr.area')
+                                option(ng-repeat='area in areas',value='{{area._id}}',ng-bind='area.name')
+                    .form-group
+                        label.col-md-2.control-label 详细地址
+                        .col-md-10
+                            input.form-control(ng-model='addr.addr',required)
+                    .form-group
+                        label.col-md-2.control-label 手机
+                        .col-md-10
+                            input.form-control(ng-model='addr.phone',type='number',required)
+                    .form-group
+                        .col-md-offset-2.col-md-10
+                            .checkbox
+                                label
+                                    input(type='checkbox',ng-model='addr.isDefault')
+                                    |  是否默认
+                    .form-group
+                        .col-md-offset-2.col-md-10
+                            button.btn.btn-danger.btn-sm(type='submit',ng-disabled='address.$invalid') 提交
+        .panel.panel-default
+            .panel-heading 地址列表
+            .panel-body
+                table.table
+                    thead
+                        th 收货人
+                        th 所在区域
+                        th 详细地址
+                        th 手机
+                        th 操作
+                        th
+                    tbody
+                        tr(ng-repeat='addr in addrs')
+                            td(ng-bind='addr.receiver')
+                            td(ng-bind='addr.area.name')
+                            td(ng-bind='addr.addr')
+                            td(ng-bind='addr.phone')
+                            td
+                                a(ng-click='edit(addr)') 修改
+                                span |
+                                a(ng-click='delete($index,addr._id)') 删除
+                            td
+                                span(ng-if='addr.isDefault') 默认地址
+block scripts
+    script(src='/javascripts/angular.min.js')
+    script(src='/javascripts/ng.js')

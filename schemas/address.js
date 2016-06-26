@@ -29,16 +29,26 @@ AddressSchema.pre('save', function (next) {
 });
 
 AddressSchema.statics = {
-    list: function (callback) {
+    list: function (student, callback) {
         return this
-            .find({})
-            .sort('meta.createAt')
+            .find({
+                student: student
+            })
+            .populate('area', {
+                'name': 1
+            })
+            .sort({
+                'meta.createAt': -1
+            })
             .exec(callback);
     }
     , findById: function (id, callback) {
         return this
             .findOne({
                 _id: id
+            })
+            .populate('area', {
+                'name': 1
             })
             .exec(callback);
     }

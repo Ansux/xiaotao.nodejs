@@ -15,6 +15,7 @@ var OrderSchema = new mongoose.Schema({
         type: ObjectId
         , ref: 'Student'
     }
+    , oitems: []
     , meta: {
         createAt: Date
         , deliverAt: Date
@@ -22,11 +23,24 @@ var OrderSchema = new mongoose.Schema({
     }
 });
 
+OrderSchema.pre('save', function (next) {
+    if (this.isNew) {
+        this.meta.createAt = Date.now();
+    }
+    next();
+});
+
 OrderSchema.statics = {
     stuOrders: function (student, callback) {
         return this
             .find({
                 buyer: student
+            })
+            .populate('store', {
+                name: 1
+            })
+            .populate('oitems', {
+
             })
             .sort('meta.createAt')
             .exec(callback);

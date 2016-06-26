@@ -3,10 +3,13 @@ var router = express.Router();
 var _ = require('underscore');
 
 var Student = require('../models/student');
+var Area = require('../models/area');
 var Address = require('../models/address');
 var Product = require('../models/product');
 var Store = require('../models/store');
 var Cart = require('../models/cart');
+var Order = require('../models/order');
+var Orderitem = require('../models/orderItem');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -92,7 +95,69 @@ router.post('/password', function (req, res) {
 });
 
 router.get('/address', function (req, res) {
+    res.render('./student/address', {
+        title: '收货地址'
+    });
+});
+router.post('/area', function (req, res) {
+    Area.list(function (err, areas) {
+        res.json(areas);
+    });
+});
+router.post('/address', function (req, res) {
+    var student = req.session.student._id;
+    Address.list(student, function (err, addrs) {
+        res.json(addrs);
+    });
+});
+router.post('/address/save', function (req, res) {
+    var formAddr = req.body.addr
+        , _addr;
+    var student = req.session.student._id;
 
+    // 默认地址处理
+    if (formAddr.isDefault == 'true') {
+        Address.list(student, function (err, addrs) {
+            if (addrs.length > 0) {
+                addrs.forEach(function (v, k) {
+                    if (v.isDefault == true) {
+                        if (v._id != formAddr._id) {
+                            v.isDefault = false;
+                            v.save(function (err, a) {});
+                        }
+                    }
+                });
+            }
+        });
+    }
+    // 新增的地址
+    if (formAddr._id === undefined) {
+        formAddr.student = student;
+        _addr = new Address(formAddr);
+        _addr.save(function (err, addr) {
+            res.json(addr);
+        });
+    } else {
+        // 修改地址
+        Address.findById(formAddr._id, function (err, addr) {
+            _addr = _.extend(addr, formAddr);
+            _addr.save(function (err, addr) {
+                res.json(addr);
+            });
+        });
+    }
+});
+router.post('/address/delete', function (req, res) {
+    var id = req.body.id;
+    Address.remove({
+        _id: id
+    }, function (err, addr) {
+        if (err) {
+            res.json(false);
+        } else {
+            res.json(true);
+        }
+    });
 });
 
 router.get('/cart', function (req, res) {
@@ -107,51 +172,51 @@ router.post('/cart', function (req, res) {
     var store;
     Product.findById(product, function (err, pro) {
         store = pro.store;
-    });
-    Cart.list(student, function (err, cart) {
-        if (cart == null) {
-            cart = new Cart({
-                student: student
-                , stores: [
-                    {
-                        store: store
-                        , prolist: [{
-                            product: product
-                            , number: number
+        Cart.list(student, function (err, cart) {
+            if (cart == null) {
+                cart = new Cart({
+                    student: student
+                    , stores: [
+                        {
+                            store: store
+                            , prolist: [{
+                                product: product
+                                , number: number
                         }]
                     }
                 ]
-            });
-            cart.save(function (err, cart) {
-                res.redirect('/student/cart');
-            });
-        } else {
-            var storeIndex = GetArrIndexById(cart.stores, 's', store);
-            if (storeIndex > -1) {
-                var productIndex = GetArrIndexById(cart.stores[storeIndex].prolist, 'p', product);
-                if (productIndex > -1) {
-                    cart.stores[storeIndex].prolist[productIndex].number += parseInt(number);
-                } else {
-                    cart.stores[storeIndex].prolist.unshift({
-                        product: product
-                        , number: number
-                    });
-                }
+                });
+                cart.save(function (err, cart) {
+                    res.redirect('/student/cart');
+                });
             } else {
-                cart.stores.unshift({
-                    store: store
-                    , prolist: [
-                        {
+                var storeIndex = GetArrIndexById(cart.stores, 's', store._id);
+                if (storeIndex > -1) {
+                    var productIndex = GetArrIndexById(cart.stores[storeIndex].prolist, 'p', product);
+                    if (productIndex > -1) {
+                        cart.stores[storeIndex].prolist[productIndex].number += parseInt(number);
+                    } else {
+                        cart.stores[storeIndex].prolist.unshift({
                             product: product
                             , number: number
+                        });
+                    }
+                } else {
+                    cart.stores.unshift({
+                        store: store._id
+                        , prolist: [
+                            {
+                                product: product
+                                , number: number
                         }
                     ]
+                    });
+                }
+                cart.save(function (err, cart) {
+                    res.redirect('/student/cart');
                 });
             }
-            cart.save(function (err, cart) {
-                res.redirect('/student/cart');
-            });
-        }
+        });
     });
 });
 router.get('/getCart', function (req, res) {
@@ -160,7 +225,6 @@ router.get('/getCart', function (req, res) {
         res.json(carts);
     });
 });
-
 
 function GetArrIndexById(arr, type, value) {
     for (var i = 0, n = arr.length; i < n; i++) {
@@ -247,6 +311,7 @@ router.post('/settle', function (req, res) {
 
     var getData = setInterval(function () {
         if (eachCount == carts.length) {
+            req.session.settle = stores;
             res.render('./student/order/settle', {
                 title: '购物结算'
                 , stores: stores
@@ -256,5 +321,93 @@ router.post('/settle', function (req, res) {
     }, 50);
 
 });
+
+router.post('/order/create', function (req, res) {
+    var stores = req.session.settle;
+    var addrId = req.body.addr;
+    var student = req.session.student._id;
+    var cartItems = []
+        , orders = []
+        , orderObj = {}
+        , orderItem = {}
+        , _order, _orderItem;
+
+    // 创建订单
+    Address.findById(addrId, function (err, addr) {
+        orderObj.receiver = addr.receiver;
+        orderObj.addr = addr.addr;
+        orderObj.phone = addr.phone;
+        orderObj.status = 1;
+        orderObj.buyer = student;
+        orderObj.amount = 0;
+
+        stores.forEach(function (v, k) {
+            orderObj.store = v.store._id;
+            v.prolist.forEach(function (p, i) {
+                cartItems.push(p);
+                orderObj.amount += p.number * p.product.price;
+            });
+            _order = new Order(orderObj);
+            _order.save(function (err, order) {
+                v.prolist.forEach(function (pro, index) {
+                    orderItem.oid = order._id;
+                    orderItem.product = pro.product._id;
+                    orderItem.price = pro.product.price;
+                    orderItem.number = pro.number;
+                    _orderItem = new Orderitem(orderItem);
+                    _orderItem.save(function (err, oi) {});
+                });
+            });
+        });
+    });
+
+    // 删除购物车中相关的条目
+    Cart.list(student, function (err, cart) {
+        var storeIndex, prolist, proIndex;
+        cartItems.forEach(function (v, k) {
+            storeIndex = GetArrIndexById(cart.stores, 's', v.product.store._id);
+            prolist = cart.stores[storeIndex].prolist;
+            proIndex = GetArrIndexById(prolist, 'p', v.product._id);
+
+            prolist.splice(proIndex, 1);
+            if (prolist.length == 0) {
+                cart.stores.splice(storeIndex, 1);
+            }
+        });
+        cart.save(function (err, cart) {
+            delete req.session.settle;
+        });
+    });
+
+    res.render('./student/order/create', {
+        title: '订单创建'
+        , stores: stores
+    });
+});
+router.get('/orders', function (req, res) {
+    var student = req.session.student._id;
+
+    Order.stuOrders(student, function (err, orders) {
+        var promise = new Promise(function (resolve, reject) {
+            orders.forEach(function (v, k) {
+                Orderitem.findByOid(v._id, function (err, ois) {
+                    v.oitems = ois;
+                    if (k == (orders.length - 1)) {
+                        resolve(orders);
+                    };
+                });
+            });
+        });
+        promise.then(function (orders) {
+            res.render('./student/order/list', {
+                title: '我的订单'
+                , orders: orders
+            });
+        }, function (value) {
+
+        });
+    });
+});
+
 
 module.exports = router;

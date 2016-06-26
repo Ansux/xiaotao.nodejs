@@ -1,0 +1,18 @@
+extends ../../layout/admin
+
+block content
+  .container
+    a(href="/admin/area/create") 添加区域
+    table.table
+        thead
+            tr
+                th 名称
+                th 操作
+        tbody
+            each item in areas
+                tr
+                    td= item.name
+                    td
+                        a(target='_blank',href='/admin/area/detail/#{item._id}') 查看
+                        span /
+                        a(target='_blank',href='/admin/area/edit/#{item._id}') 编辑

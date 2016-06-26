@@ -1,0 +1,43 @@
+extends ../../layout/student
+
+block content
+    .cart-wrap
+        .header
+            .row
+                .col-xs-8
+                    |  全部商品
+                .col-xs-1 单价(元)
+                .col-xs-2 数量
+                .col-xs-1 金额(元)
+        form(method='post',action='/student/settle')
+            - var amount=0,items=0;
+            each item in stores
+                .store-item
+                    .info
+                        | 店铺：#{item.store.name}
+                    .pro-items
+                        each cart in item.prolist
+                            - amount+=cart.number*cart.product.price;
+                            - items+=1;
+                            .item.row
+                                .col-xs-8.pro-info
+                                    .fixed
+                                        img(src="#{cart.product.oriImg}", width="30", alt="#{cart.product.name}")
+                                    .right
+                                        a(target="_blank",href="/product/detail/#{cart.product._id}")= cart.product.name
+                                .col-xs-1= cart.product.price
+                                .col-xs-2
+                                    .number-control= cart.number
+                                .col-xs-1= cart.number*cart.product.price
+            .settle
+                .account
+                    span
+                        | 总计：
+                        em.money
+                            | ¥ #{amount}
+                    span
+                        | 共有(商品)：
+                        em= items
+                        |  件
+                .btn-settle
+                    button(type='submit') 去支付

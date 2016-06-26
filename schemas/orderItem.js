@@ -27,8 +27,12 @@ var OrderitemSchema = new mongoose.Schema({
 OrderitemSchema.statics = {
     findByOid: function (oid, callback) {
         return this
-            .findOne({
+            .find({
                 oid: oid
+            })
+            .populate('product', {
+                name: 1
+                , oriIme: 1
             })
             .exec(callback);
     }

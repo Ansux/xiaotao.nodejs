@@ -1,0 +1,22 @@
+extends ../../layout/student
+
+block content
+    table.table
+        thead
+            tr
+                th 订单详情
+                th 收货人
+                th 金额
+                th 状态
+                th 操作
+        tbody
+            - orders
+            each o in orders
+                tr
+                    td= moment(o.meta.createAt).format('YYYY/MM/DD h:mm:ss')
+                    td= o._id
+                    td
+                        a(href='',target='_blank')= o.store.name
+                each oi in o.oitems
+                    tr
+                        td= o.oitems

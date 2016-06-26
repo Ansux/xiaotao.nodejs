@@ -11,7 +11,9 @@ AreaSchema.statics = {
     list: function (callback) {
         return this
             .find({})
-            .sort('createAt')
+            .sort({
+                'createAt': -1
+            })
             .exec(callback);
     }
     , findById: function (id, callback) {
@@ -22,3 +24,5 @@ AreaSchema.statics = {
             .exec(callback);
     }
 }
+
+module.exports = AreaSchema;

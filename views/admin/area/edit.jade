@@ -1,0 +1,13 @@
+extends ../../layout/admin
+
+block content
+    .container
+        form.form-horizontal(method='post',action='/admin/area/edit')
+            input(type='hidden',name='area[_id]',value=area._id)
+            .form-group
+                label.col-xs-2.control-label 名称
+                .col-xs-10
+                    input.form-control(type='text',name='area[name]',value=area.name)
+            .form-group
+                .col-xs-offset-2.col-xs-10
+                    button.btn.btn-default(type='submit') 提交

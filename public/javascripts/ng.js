@@ -12,41 +12,50 @@ Array.prototype.remove = function (val) {
     }
 };
 
-angular.module('myCart', [], function ($httpProvider) {
-        $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
-        $httpProvider.defaults.transformRequest = [function (data) {
-            var param = function (obj) {
-                var query = '';
-                var name, value, fullSubName, subName, subValue, innerObj, i;
-                for (name in obj) {
-                    value = obj[name];
-                    if (value instanceof Array) {
-                        for (i = 0; i < value.length; ++i) {
-                            subValue = value[i];
-                            fullSubName = name + '[' + i + ']';
-                            innerObj = {};
-                            innerObj[fullSubName] = subValue;
-                            query += param(innerObj) + '&';
-                        }
-                    } else if (value instanceof Object) {
-                        for (subName in value) {
-                            subValue = value[subName];
-                            fullSubName = name + '[' + subName + ']';
-                            innerObj = {};
-                            innerObj[fullSubName] = subValue;
-                            query += param(innerObj) + '&';
-                        }
-                    } else if (value !== undefined && value !== null) {
-                        query += encodeURIComponent(name) + '=' + encodeURIComponent(value) + '&';
+Array.prototype.moveToFirst = function (val) {
+    var index = this.indexOf(val);
+    var first = this[index];
+    this.splice(index, 1);
+    this.unshift(first);
+}
+
+angular.module('root', [], function provider($httpProvider) {
+    $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+    $httpProvider.defaults.transformRequest = [function (data) {
+        var param = function (obj) {
+            var query = '';
+            var name, value, fullSubName, subName, subValue, innerObj, i;
+            for (name in obj) {
+                value = obj[name];
+                if (value instanceof Array) {
+                    for (i = 0; i < value.length; ++i) {
+                        subValue = value[i];
+                        fullSubName = name + '[' + i + ']';
+                        innerObj = {};
+                        innerObj[fullSubName] = subValue;
+                        query += param(innerObj) + '&';
                     }
+                } else if (value instanceof Object) {
+                    for (subName in value) {
+                        subValue = value[subName];
+                        fullSubName = name + '[' + subName + ']';
+                        innerObj = {};
+                        innerObj[fullSubName] = subValue;
+                        query += param(innerObj) + '&';
+                    }
+                } else if (value !== undefined && value !== null) {
+                    query += encodeURIComponent(name) + '=' + encodeURIComponent(value) + '&';
                 }
-                return query.length ? query.substr(0, query.length - 1) : query;
-            };
-            return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
+            }
+            return query.length ? query.substr(0, query.length - 1) : query;
+        };
+        return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
       }];
-    })
+});
+
+angular.module('myCart', ['root'])
     .controller('myCart', function ($scope, $http, $q) {
-        $http.get('/student/getCart').success(function (res) {
+        $http.get('/student/getCart?t=' + new Date().getTime()).success(function (res) {
             $scope.stores = res.stores;
         });
 
@@ -202,5 +211,81 @@ angular.module('myCart', [], function ($httpProvider) {
             }).success(function (res) {
 
             });
+        };
+    });
+
+angular.module('myAddress', ['root'])
+    .controller('myAddress', function ($scope, $http) {
+        $scope.addr = {};
+        $http.post('/student/area').success(function (res) {
+            $scope.areas = res;
+            $scope.addr.area = res[0]._id;
+        });
+        $scope.getAddrs = function () {
+            $http.post('/student/address').success(function (res) {
+                $scope.addrs = res;
+            });
+        };
+        $scope.getAddrs();
+
+        $scope.submit = function () {
+            var addr = $scope.addr;
+            $http.post('/student/address/save', {
+                addr: addr
+            }).success(function (res) {
+                $scope.addr = {
+                    area: $scope.addr.area
+                };
+                $scope.getAddrs();
+                // $scope.addrs.unshift(res);
+            });
+        };
+        $scope.delete = function (index, id) {
+            $http.post('/student/address/delete', {
+                id: id
+            }).success(function (res) {
+                if (res == true) {
+                    $scope.addrs.splice(index, 1);
+                }
+            });
+        };
+        $scope.edit = function (model) {
+            var addr = {
+                _id: model._id
+                , receiver: model.receiver
+                , area: model.area._id
+                , addr: model.addr
+                , phone: model.phone
+                , isDefault: model.isDefault
+            };
+            $scope.addr = addr;
+        }
+    });
+
+angular.module('mySettle', ['root'])
+    .controller('mySettle', function ($scope, $http) {
+        $http.post('/student/address').success(function (res) {
+            var defaultAddr = {};
+            angular.forEach(res, function (v, k) {
+                if (v.isDefault == true) {
+                    defaultAddr = v;
+                    defaultAddr.select = true;
+                    res.splice(k, 1);
+                    $scope.hasAddr = defaultAddr;
+                }
+            });
+            res.unshift(defaultAddr);
+            $scope.addrs = res;
+        });
+        $scope.select = function (model) {
+            if (model.select !== true) {
+                angular.forEach($scope.addrs, function (v, k) {
+                    if (v.select == true) {
+                        v.select = undefined;
+                    }
+                });
+                model.select = true;
+                $scope.hasAddr = model;
+            }
         };
     });

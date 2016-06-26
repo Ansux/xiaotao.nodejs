@@ -142,4 +142,61 @@ router.get('/store/list', function (req, res) {
     });
 });
 
+// area-router
+router.get('/area', function (req, res, next) {
+    res.redirect('/admin/area/list');
+});
+router.get('/area/list', function (req, res, next) {
+    Area.list(function (err, areas) {
+        res.render('./admin/area/list', {
+            title: '区域列表'
+            , areas: areas
+        });
+    })
+});
+router.get('/area/create', function (req, res) {
+    res.render('./admin/area/create', {
+        title: '添加区域'
+    });
+});
+router.post('/area/create', function (req, res) {
+    var _area = req.body.area;
+    var area = new Area(_area);
+    area.save(function (err, area) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect('/admin/area/list');
+        }
+    });
+});
+router.get('/area/edit/:id', function (req, res) {
+    var id = req.params.id;
+    Area.findById(id, function (err, area) {
+        res.render('./admin/area/edit', {
+            title: '保存角色'
+            , area: area
+        });
+    });
+});
+router.post('/area/edit', function (req, res) {
+    var formArea = req.body.area;
+
+    Area.findById(formArea._id, function (err, area) {
+        var _area = _.extend(area, formArea);
+        _area.save(function (err, area) {
+            res.redirect('/admin/area/detail/' + area._id);
+        });
+    });
+});
+router.get('/area/detail/:id', function (req, res) {
+    var id = req.params.id;
+    Area.findById(id, function (err, area) {
+        res.render('./admin/area/detail', {
+            title: '角色详情'
+            , area: area
+        });
+    });
+});
+
 module.exports = router;
