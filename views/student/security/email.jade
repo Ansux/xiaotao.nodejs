@@ -1,0 +1,16 @@
+form.form-horizontal(id="formEmail")
+  .form-group
+    label.col-sm-2.control-label 登录名
+    .col-sm-10(style="padding-top:7px;") 梦小苏的寻梦之旅
+  .form-group
+    label.col-sm-2.control-label 新邮箱
+    .col-sm-10
+      input.form-control(type="email",name="email")
+      a.btn.btn-default.btn-sm(style="margin-top:7px;",role="button") 获取验证码
+  .form-group
+    label.col-sm-2.control-label 验证码
+    .col-sm-10
+      input.form-control(type="text",name="code")
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      button.btn.btn-danger.btn-sm(type="button") 提交

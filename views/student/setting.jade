@@ -1,0 +1,57 @@
+extends ../layout/student
+
+block content
+	.wrap-setting
+		.left-menu
+			.avatar
+				a
+					img(src="https://wwc.alicdn.com/avatar/getAvatar.do?userId=615494192&width=100&height=100&type=sns", width="", height="", alt="")
+			.menu
+				ul
+					li
+						a.active(href='/student/setting') 个人资料
+					li
+						a(href='/student/security') 安全设置
+					li
+						a(href='/student/address') 收货地址
+					li
+						a(href='/student/privacy') 隐私设置
+					li
+						a(href='/student/notify') 网站提醒
+		.right-box
+			.title
+				b 个人资料
+			.tab-link
+				a.active(href="") 基本资料
+				a(href="") 头像照片
+			.content
+				p.row-line
+					| 亲爱的
+					b 梦******旅
+					| ，填写真实的资料，有助于好友找到你哦。
+				form.form-horizontal
+					.form-group
+						label.col-xs-3.control-label 当前头像：
+						.col-xs-9
+							img(src="https://wwc.alicdn.com/avatar/getAvatar.do?userId=615494192&width=80&height=80&type=sns", alt="") 
+					.form-group
+						label.col-xs-3.control-label 昵称：
+						.col-xs-9
+							input.form-control(type="text",name="nickname")
+					.form-group
+						label.col-xs-3.control-label 真实姓名：
+						.col-xs-9
+							input.form-control(type="text",name="realname")
+					.form-group
+						label.col-xs-3.control-label 性别：
+						.col-xs-9
+							label.radio-inline
+								input(type="radio", name="sex", value="1")
+								|  男
+							label.radio-inline
+								input(type="radio", name="sex", value="0")
+								|  女
+					.form-group
+						.col-xs-offset-3.col-xs-9
+							button.btn.btn-danger.btn-sm(type="submit") 保存
+							

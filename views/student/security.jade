@@ -1,0 +1,73 @@
+extends ../layout/student
+
+block content
+  .wrap-setting
+    .left-menu
+      .avatar
+        a
+          img(src="https://wwc.alicdn.com/avatar/getAvatar.do?userId=615494192&width=100&height=100&type=sns", width="", height="", alt="")
+      .menu
+        ul
+          li
+            a(href='/student/setting') 个人资料
+          li
+            a.active(href='/student/security') 安全设置
+          li
+            a(href='/student/address') 收货地址
+          li
+            a(href='/student/privacy') 隐私设置
+          li
+            a(href='/student/notify') 网站提醒
+    .right-box
+      .title
+        b 安全设置
+      .content
+        .security-item
+          .sub-title 您的安全服务
+          ul
+            li.row
+              .col-sm-1.status
+                span.glyphicon.glyphicon-ok
+              .col-sm-2.name 登录密码
+              .col-sm-7.info 互联网账号存在被盗风险，建议您定期更改密码以保护账户安全。
+              .col-sm-2.operate
+                a#securityPwd 修改
+            li.row
+              .col-sm-1.status
+                span.glyphicon.glyphicon-ok
+              .col-sm-2.name 邮箱验证
+              .col-sm-7.info 您验证的邮箱： 63*****38@qq.com
+              .col-sm-2.operate
+                a#securityEmail 修改
+            li.row
+              .col-sm-1.status
+                span.glyphicon.glyphicon-ok
+              .col-sm-2.name 手机验证
+              .col-sm-7.info 您验证的手机： 150*****661    若已丢失或停用，请立即更换，避免账户被盗
+              .col-sm-2.operate
+                a#securityPhone 修改
+            li.row
+              .col-sm-1.status
+                span.glyphicon.glyphicon-ok
+              .col-sm-2.name 支付密码
+              .col-sm-7.info 安全程度：中。建议您设置更高强度的密码。
+              .col-sm-2.operate
+                a#securityPayPwd 修改
+            li.row
+              .col-sm-1.status
+                span.glyphicon.glyphicon-ok
+              .col-sm-2.name 实名认证
+              .col-sm-7.info 您认证的实名信息： **祥 45************3911
+              .col-sm-2.operate
+                a#securityEmail 查看
+        .modal.fade#securityModal
+          .modal-dialog
+            .modal-content
+              .modal-header
+                button.close(data-dismiss="modal",aria-label="Close")
+                  span(aria-hidden="true") &times;
+                h4.modal-title
+              .modal-body
+block scripts
+  script(src='/javascripts/angular.min.js')
+  script(src='/javascripts/ng.js')
