@@ -1,289 +1,315 @@
 .prolist .price {
-    font-size: 18px;
-    color: red;
-    font-weight: bold;
-    float: left;
+  font-size: 18px;
+  color: red;
+  font-weight: bold;
+  float: left;
 }
 .prolist .sales {
-    float: right;
-    color: #999;
+  float: right;
+  color: #999;
 }
 .prolist .row-2 {
-    margin-top: 10px;
-    height: 60px;
-    overflow: hidden;
+  margin-top: 10px;
+  height: 60px;
+  overflow: hidden;
 }
 .prolist .row-2 a {
-    color: #333;
-    text-decoration: none;
+  color: #333;
+  text-decoration: none;
 }
 .prolist .row-2 a:hover {
-    color: #f40;
+  color: #f40;
 }
 
 /*商品详情页*/
 
 .g-intro {}
 .g-intro .focus img {
-    width: 100%;
+  width: 100%;
 }
 .info-items> div {
-    position: relative;
-    margin-bottom: 20px;
+  position: relative;
+  margin-bottom: 20px;
 }
 .g-intro .title {
-    position: absolute;
-    width: 80px;
+  position: absolute;
+  width: 80px;
 }
 .g-intro .right {
-    margin-left: 80px;
+  margin-left: 80px;
 }
 .g-intro .info-items {}
 .g-intro .item-name {
-    font-size: 20px;
+  font-size: 20px;
 }
 
 /*cart 购物车*/
 
 .cart-wrap .header {
-    font-weight: bold;
-    font-size: 15px;
-    padding: 10px 15px;
-    border-bottom: solid 2px #ddd;
-    margin-bottom: 20px;
-    background-color: #f8f8f8;
+  font-weight: bold;
+  font-size: 15px;
+  padding: 10px 15px;
+  border-bottom: solid 2px #ddd;
+  margin-bottom: 20px;
+  background-color: #f8f8f8;
 }
 .cart-wrap .store-item {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 .cart-wrap .store-item .info input {
-    float: left;
-    margin-top: 0px;
-    margin-right: 5px;
+  float: left;
+  margin-top: 0px;
+  margin-right: 5px;
 }
 .cart-wrap .store-item .info {
-    padding-left: 16px;
-    font-weight: bold;
+  padding-left: 16px;
+  font-weight: bold;
 }
 .cart-wrap .pro-items {
-    border: solid 1px #ddd;
-    padding: 0 10px;
-    margin-top: 5px;
+  border: solid 1px #ddd;
+  padding: 0 10px;
+  margin-top: 5px;
 }
 .cart-wrap .pro-info {
-    position: relative;
-    min-height: 30px;
+  position: relative;
+  min-height: 30px;
 }
 .cart-wrap .pro-info .fixed {
-    position: absolute;
-    left: 15px;
+  position: absolute;
+  left: 15px;
 }
 .cart-wrap .pro-info img {
-    padding: 2px;
-    border: solid 1px #ddd;
-    margin-left: 5px;
+  padding: 2px;
+  border: solid 1px #ddd;
+  margin-left: 5px;
 }
 .cart-wrap .pro-items .item {
-    border-bottom: solid 1px #ddd;
-    margin: 0 -10px;
-    padding: 10px 0;
+  border-bottom: solid 1px #ddd;
+  margin: 0 -10px;
+  padding: 10px 0;
 }
 .cart-wrap .pro-items .checked {
-    background: #f8f8f8;
+  background: #f8f8f8;
 }
 .cart-wrap .pro-items .right {
-    margin-left: 55px;
+  margin-left: 55px;
 }
 .cart-wrap .pro-items .item:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 .cart-wrap .number-control {
-    width: 80px;
+  width: 80px;
 }
 .cart-wrap .number-control a {
-    display: block;
-    float: left;
-    background: #ddd;
-    width: 20px;
-    height: 25px;
-    text-align: center;
-    line-height: 25px;
-    color: #333;
-    text-decoration: none;
+  display: block;
+  float: left;
+  background: #ddd;
+  width: 20px;
+  height: 25px;
+  text-align: center;
+  line-height: 25px;
+  color: #333;
+  text-decoration: none;
 }
 .cart-wrap .number-control input {
-    display: block;
-    height: 25px;
-    text-align: center;
-    width: 40px;
-    float: left;
+  display: block;
+  height: 25px;
+  text-align: center;
+  width: 40px;
+  float: left;
 }
 .cart-wrap .number-control input::-webkit-outer-spin-button, .cart-wrap .number-control input::-webkit-inner-spin-button {
-    -webkit-appearance: none !important;
-    margin: 0;
+  -webkit-appearance: none !important;
+  margin: 0;
 }
 .cart-wrap .settle {
-    border: solid 1px #ddd;
-    position: relative;
-    height: 50px;
+  border: solid 1px #ddd;
+  position: relative;
+  height: 50px;
 }
 .cart-wrap .settle .account {
-    line-height: 50px;
-    padding-left: 15px;
+  line-height: 50px;
+  padding-left: 15px;
 }
 .cart-wrap .btn-settle {
-    position: absolute;
-    right: -1px;
-    top: -1px;
+  position: absolute;
+  right: -1px;
+  top: -1px;
 }
 .cart-wrap .btn-settle button {
-    border: none;
-    height: 50px;
-    padding: 0 20px;
-    font-size: 16px;
-    background-color: #f40;
-    font-weight: bold;
-    color: #fff;
-    outline: none;
-    font-family: '微软雅黑';
+  border: none;
+  height: 50px;
+  padding: 0 20px;
+  font-size: 16px;
+  background-color: #f40;
+  font-weight: bold;
+  color: #fff;
+  outline: none;
+  font-family: '微软雅黑';
 }
 .cart-wrap .btn-settle button[disabled] {
-    cursor: not-allowed;
-    filter: alpha(opacity=65);
-    -webkit-box-shadow: none;
-    opacity: .65;
+  cursor: not-allowed;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  opacity: .65;
 }
 .cart-wrap .settle span {
-    margin-right: 30px;
-    display: inline-block;
+  margin-right: 30px;
+  display: inline-block;
 }
 .cart-wrap .settle em {
-    font-style: normal;
-    color: #f40;
-    font-size: 15px;
-    font-family: verdana;
+  font-style: normal;
+  color: #f40;
+  font-size: 15px;
+  font-family: verdana;
 }
 .cart-wrap .settle em.money {
-    font-size: 22px;
-    font-weight: 700;
+  font-size: 22px;
+  font-weight: 700;
 }
 .settle-addrs {}
 .settle-addrs .thumbnail {
-    position: relative;
-    cursor: pointer;
+  position: relative;
+  cursor: pointer;
 }
 .settle-addrs .default-flag {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 1px 3px;
-    background: rgba(0, 0, 0, .1);
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 1px 3px;
+  background: rgba(0, 0, 0, .1);
 }
 .settle-addrs .select {
-    border-color: #f40;
-    background-color: #fbf3f3;
+  border-color: #f40;
+  background-color: #fbf3f3;
 }
 .settle-addrs .title {
-    font-size: 14px;
-    font-weight: bold;
-    margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
 /* orders */
 
 #orders {
-    padding: 15px;
-}
-#orders .time {
-    margin-right: 50px;
-}
-#orders .oid {
-    margin-right: 80px;
-}
-#orders .p-info {
-    position: relative;
-    border-bottom: solid 1px #eee;
-    padding: 15px 0;
-    border-right: solid 1px #eee;
-}
-#orders .p-info:last-child {
-    border-bottom: none;
-}
-#orders .p-info .img {
-    position: absolute;
-    left: 15px;
-}
-#orders .p-info .number {
-    position: absolute;
-    top: 15px;
-    right: 30px;
-}
-#orders .p-info .info {
-    margin-left: 85px;
-    min-height: 60px;
-    margin-right: 100px;
-}
-#orders .p-info .info a {
-    display: block;
+  padding: 15px;
 }
 #orders .header {
-    line-height: 2;
-    font-size: 14px;
-    font-weight: bold;
-    background: #efefef;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    margin-bottom: 20px;
+  text-align: center;
+  line-height: 2;
+  font-size: 14px;
+  background: #efefef;
+  color: #666;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-bottom: 20px;
+}
+#orders .header .col-xs-6 {
+  text-align: left;
+}
+#orders th {
+  font-weight: normal;
+  color: #666;
+}
+#orders td {
+  padding: 15px 0;
+  border-right: solid 1px #eee;
+  text-align: center;
+}
+#orders td.col-xs-7 {
+  text-align: left;
+  padding-top: 0;
+}
+#orders td:last-child {
+  border-right: none;
+}
+#orders .time {
+  margin-right: 50px;
+}
+#orders .oid {
+  margin-right: 80px;
+}
+#orders .p-info {
+  position: relative;
+  border-bottom: solid 1px #eee;
+  padding: 15px 0
+}
+#orders .p-info:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+#orders .p-info .img {
+  position: absolute;
+  left: 15px;
+}
+#orders .p-info .number {
+  position: absolute;
+  top: 15px;
+  right: 30px;
+}
+#orders .p-info .info {
+  margin-left: 85px;
+  min-height: 60px;
+  margin-right: 100px;
+}
+#orders .p-info .info a {
+  display: block;
 }
 #orders .o-item {
-    margin-bottom: 15px;
-    border: solid 1px #eee;
+  margin-bottom: 15px;
+  border: solid 1px #eee;
 }
 #orders .o-info {
-    background: #efefef;
-    padding: 10px 15px;
+  background: #efefef;
+  padding: 10px 15px;
+}
+#orders .amount p{
+  margin: 0 5px 5px 5px;
+  padding-bottom: 5px;
+  border-bottom: solid 1px #eee;
 }
 
 /* setting */
-.wrap-setting{
+
+.wrap-setting {
   position: relative;
   background: #ccc;
   padding-left: 140px;
   border: solid 1px #ccc;
 }
-.wrap-setting .left-menu{
+.wrap-setting .left-menu {
   position: absolute;
   left: 0px;
   top: 0px;
 }
-.wrap-setting .avatar{
+.wrap-setting .avatar {
   margin: 15px;
   padding: 4px;
   background-color: #fff;
   border: solid 1px #999;
   border-radius: 3px;
 }
-.wrap-setting .menu ul{
+.wrap-setting .menu ul {
   padding-left: 0;
   list-style: none;
 }
-.wrap-setting .menu li a{
+.wrap-setting .menu li a {
   display: block;
   padding: 8px 15px;
   width: 100%;
   color: #666;
 }
-.wrap-setting .menu li a.active{
+.wrap-setting .menu li a.active {
   background-color: #eee;
   color: #333;
 }
-.wrap-setting .right-box{
+.wrap-setting .right-box {
   background-color: #eee;
 }
-.wrap-setting .title{
+.wrap-setting .title {
   border-bottom: solid 1px #ccc;
 }
-.wrap-setting .title b{
+.wrap-setting .title b {
   display: inline-block;
   padding: 5px 10px;
   margin-top: 10px;
@@ -292,40 +318,41 @@
   border: solid 1px #ccc;
   border-bottom-color: #eee;
 }
-.wrap-setting .tab-link{
+.wrap-setting .tab-link {
   border-bottom: solid 1px #ccc;
   padding: 5px 0 5px 30px;
   margin-top: 5px;
 }
-.wrap-setting .tab-link a{
+.wrap-setting .tab-link a {
   display: inline-block;
   margin-right: 30px;
   color: #666;
 }
-.wrap-setting .tab-link a.active{
+.wrap-setting .tab-link a.active {
   font-weight: bold;
 }
-.wrap-setting .content{
+.wrap-setting .content {
   padding: 20px;
 }
-.wrap-setting .content .radio-inline{
+.wrap-setting .content .radio-inline {
   line-height: 1.6;
 }
 
 /* security */
-.security-item{
+
+.security-item {
   padding: 10px;
 }
-.security-item .sub-title{
+.security-item .sub-title {
   font-size: 14px;
   font-weight: bold;
   margin-bottom: 20px;
 }
-.security-item ul{
+.security-item ul {
   padding-left: 0;
   list-style: none;
 }
-.security-item li{
+.security-item li {
   margin-left: 0px;
   margin-right: 0px;
   padding: 20px 0;

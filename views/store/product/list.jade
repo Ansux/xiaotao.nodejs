@@ -17,6 +17,8 @@ block content
                     td= item.name
                     td= item.stock
                     td= item.sales
-                    td= item.isOnsale
-                    td= item.isDelete
+                    td
+                      span(class='glyphicon glyphicon-#{item.isOnsale===true?"ok":"remove"}')
+                    td
+                      span(class='glyphicon glyphicon-#{item.isDelete===true?"ok":"remove"}')
                     td= moment(item.meta.createAt).format('YYYY/MM/DD')

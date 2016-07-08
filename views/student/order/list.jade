@@ -1,31 +1,53 @@
 extends ../../layout/student
 
 block content
-    #orders
-        .row.header
-            .col-xs-6 订单详情
-            .col-xs-1 金额
-            .col-xs-1 收货人
-            .col-xs-2 状态
-            .col-xs-2 操作
-        .list
-            each o in orders
-                .row.o-item
-                    .o-info
-                        span.time= moment(o.meta.createAt).format('YYYY/MM/DD HH:mm:ss')
-                        span.oid 订单号：#{o._id}
-                        a(href='',target='_blank')= o.store.name
-                    .row.oi-info
-                        .col-xs-6
-                            each oi in o.oitems
-                                .p-info
-                                    a.img(href='',target='_blank')
-                                        img(width='60',src='#{oi.product.oriImg}')
-                                    .info
-                                        a(href='')= oi.product.name
-                                        span 单价(￥): #{oi.price}
-                                    .number x #{oi.number}
-                        .col-xs-1= o.amount
-                        .col-xs-1= o.receiver
-                        .col-xs-2= o.status
-                        .col-xs-2
+  #orders
+    .row.header
+      .col-xs-7 订单详情
+      .col-xs-1 金额
+      .col-xs-1 收货人
+      .col-xs-2 状态
+      .col-xs-1 操作
+    .row.list
+      - if(orders)
+        each o in orders
+          table.table.o-item
+            thead.o-info
+              tr
+                th(colspan="5")
+                  span.time= moment(o.meta.createAt).format('YYYY/MM/DD HH:mm:ss')
+                  span.oid 订单号：#{o._id}
+                  a(href='',target='_blank')= o.store.name
+            tbody.oi-info
+              tr
+                td.col-xs-7
+                  each oi in o.oitems
+                    .p-info
+                      a.img(href='',target='_blank')
+                        img(width='60',src='#{oi.product.oriImg}')
+                      .info
+                        a(href='')= oi.product.name
+                        span 单价(¥): #{oi.price}
+                      .number x #{oi.number}
+                td.col-xs-1.amount
+                  p 总额¥ #{o.amount}
+                  span 货到付款
+                td.col-xs-1= o.receiver
+                td.col-xs-2
+                  a() 订单详情
+                  br
+                  case o.status
+                    when 1
+                      span 待发货
+                    when 2
+                      span 运输中
+                    when 3
+                      span 已收货
+                    when 4
+                      span 已评价
+                td.col-xs-1
+                  case o.status
+                    when 2
+                      a() 确认收货
+                    when 3
+                      a() 去评价

@@ -1,21 +1,12 @@
-function securityModal(getUrl,title) {
-  $.get(getUrl,function (res) {
+$('.security-modal').click(function () {
+  var url = '/student/security/' + $(this).attr('data-url');
+  var title = $(this).attr('data-title');
+  $.get(url,function (res) {
     if (res != '')
       $('#securityModal .modal-title').html(title);
       $('#securityModal .modal-body').html(res);
-      $('#securityModal').modal();
+      setTimeout(function () {
+        $('#securityModal').modal();
+      }, 50);
   });
-};
-
-$('#securityPwd').click(function () {
-  securityModal('/student/security/password','修改密码');
-});
-$('#securityEmail').click(function () {
-  securityModal('/student/security/email','修改邮箱');
-});
-$('#securityPhone').click(function () {
-  securityModal('/student/security/phone','修改手机号码');
-});
-$('#securityPayPwd').click(function () {
-  securityModal('/student/security/paypwd','修改支付密码');
 });

@@ -68,16 +68,16 @@ router.get('/signout', function(req, res) {
 });
 
 // 基本资料
-router.get('/setting', function(req, res) {
+router.get('/baseinfo', function(req, res) {
   var id = req.params.id;
   Student.findById(id, function(err, student) {
-    res.render('./student/setting', {
+    res.render('./student/baseinfo', {
       title: '更新学生',
       student: student
     });
   });
 });
-router.post('/setting', function(req, res) {
+router.post('/baseinfo', function(req, res) {
   var formStu = req.body.student;
   Student.findById(formStu._id, function(err, stu) {
     var _stu = _.extend(stu, formStu);
@@ -86,6 +86,11 @@ router.post('/setting', function(req, res) {
     });
   });
 });
+// 头像设置
+router.get('/avatar', function(req, res) {
+  res.render('./student/avatar', {})
+});
+router.post('/avatar', function(req, res) {});
 
 // 地址管理
 router.get('/address', function(req, res) {
@@ -155,13 +160,13 @@ router.post('/address/delete', function(req, res) {
 });
 
 // 安全中心
-router.get('/security',function (req,res) {
-  res.render('./student/security',{
+router.get('/security', function(req, res) {
+  res.render('./student/security', {
     title: '安全中心'
   })
 });
-router.get('/security/password',function (req,res) {
-  res.render('./student/security/password',{});
+router.get('/security/password', function(req, res) {
+  res.render('./student/security/password', {});
 });
 router.post('/security/password', function(req, res) {
   var formPwd = req.body.pwd;
@@ -170,8 +175,8 @@ router.post('/security/password', function(req, res) {
     res.redirect('/student/list');
   });
 });
-router.get('/security/email',function (req,res) {
-  res.render('./student/security/email',{});
+router.get('/security/email', function(req, res) {
+  res.render('./student/security/email', {});
 });
 router.post('/security/email', function(req, res) {
   var formPwd = req.body.pwd;
@@ -180,22 +185,20 @@ router.post('/security/email', function(req, res) {
     res.redirect('/student/list');
   });
 });
-router.get('/security/phone',function (req,res) {
-  res.render('./student/security/phone',{});
+router.get('/security/phone', function(req, res) {
+  res.render('./student/security/phone', {});
 });
-router.post('/security/phone',function (req,res) {
+router.post('/security/phone', function(req, res) {
 
 });
-router.get('/security/paypwd',function (req,res) {
-  res.render('./student/security/paypwd',{});
+router.get('/security/paypwd', function(req, res) {
+  res.render('./student/security/paypwd', {});
 });
-router.post('/security/paypwd',function (req,res) {
+router.post('/security/paypwd', function(req, res) {
 
 });
-router.get('/security/certify',function () {
-  var certify = true;
-  var render = (certify === true?'certifyInfo':'certify');
-  res.render('./student/security/'+render,{});
+router.get('/security/certify', function(req, res) {
+  res.render('./student/security/certify', {});
 });
 
 router.get('/cart', function(req, res) {
