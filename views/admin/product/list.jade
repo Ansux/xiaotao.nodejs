@@ -1,0 +1,20 @@
+extends ../../layout/admin
+
+block content
+  table.table
+    thead
+      tr
+        th 商品
+        th 价格
+        th 销量
+        th 上架
+        th 创建时间
+    tbody
+      each pro in products
+        tr
+          td= pro.name
+          td= pro.price
+          td= pro.sales
+          td
+            i(class="glyphicon glyphicon-#{pro.isOnsale===true?'ok':'remove'}")
+          td= moment(pro.meta.createAt).format('YYYY/MM/DD')

@@ -1,24 +1,24 @@
-extends ../layout
+extends ../../layout/admin
 
 block content
-    .container
-        table.table
-            thead
-                tr
-                    th Email
-                    th 性别
-                    th 头像
-                    th 手机
-                    th 操作
-            tbody
-                each item in stus
-                    tr
-                        td= item.email
-                        td= item.sex
-                        td
-                            img(width='30',src=item.avatar)
-                        td= item.phone
-                        td
-                            a(href='/student/detail/#{item._id}') 详情
-                            span / 
-                            a(href='/student/edit/#{item._id}') 更新
+  .container
+    table.table
+      thead
+        tr
+          th Email
+          th 性别
+          th 头像
+          th 手机
+          th 操作
+      tbody
+        each item in stus
+          tr
+            td= item.email
+            td= item.sex
+            td
+              img(width='30',src=item.avatar)
+            td= item.phone
+            td
+              a(href='/student/detail/#{item._id}') 详情
+              span / 
+              a(href='/student/edit/#{item._id}') 更新

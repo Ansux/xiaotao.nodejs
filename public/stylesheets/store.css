@@ -1,73 +1,68 @@
-/* orders */
+/* setting */
 
-#orders {
-    padding: 15px;
+.wrap-setting {
+  position: relative;
+  background: #ccc;
+  padding-left: 140px;
+  border: solid 1px #ccc;
 }
-#orders .header{
-  text-align: center;
-  line-height: 2;
-  font-size: 14px;
-  background: #efefef;
+.wrap-setting .left-menu {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+.wrap-setting .avatar {
+  margin: 15px;
+  padding: 4px;
+  background-color: #fff;
+  border: solid 1px #999;
+  border-radius: 3px;
+}
+.wrap-setting .menu ul {
+  padding-left: 0;
+  list-style: none;
+}
+.wrap-setting .menu li a {
+  display: block;
+  padding: 8px 15px;
+  width: 100%;
   color: #666;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  margin-bottom: 20px;
 }
-#orders .header .col-xs-6{
-  text-align: left;
+.wrap-setting .menu li a.active {
+  background-color: #eee;
+  color: #333;
 }
-#orders th{
-  font-weight: normal;
+.wrap-setting .right-box {
+  background-color: #eee;
+}
+.wrap-setting .title {
+  border-bottom: solid 1px #ccc;
+}
+.wrap-setting .title b {
+  display: inline-block;
+  padding: 5px 10px;
+  margin-top: 10px;
+  margin-left: 20px;
+  margin-bottom: -1px;
+  border: solid 1px #ccc;
+  border-bottom-color: #eee;
+}
+.wrap-setting .tab-link {
+  border-bottom: solid 1px #ccc;
+  padding: 5px 0 5px 30px;
+  margin-top: 5px;
+}
+.wrap-setting .tab-link a {
+  display: inline-block;
+  margin-right: 30px;
   color: #666;
 }
-#orders td{
-  padding: 0;
-  border-right: solid 1px #eee;
-  text-align: center;
-  vertical-align: middle;
+.wrap-setting .tab-link a.active {
+  font-weight: bold;
 }
-#orders td.col-xs-6{
-  text-align: left;
+.wrap-setting .content {
+  padding: 20px;
 }
-#orders td:last-child{
-  border-right: none;
-}
-#orders .time {
-    margin-right: 50px;
-}
-#orders .oid {
-    margin-right: 80px;
-}
-#orders .p-info {
-    position: relative;
-    border-bottom: solid 1px #eee;
-    padding: 15px 0;
-}
-#orders .p-info:last-child {
-    border-bottom: none;
-}
-#orders .p-info .img {
-    position: absolute;
-    left: 15px;
-}
-#orders .p-info .number {
-    position: absolute;
-    top: 15px;
-    right: 30px;
-}
-#orders .p-info .info {
-    margin-left: 85px;
-    min-height: 60px;
-    margin-right: 100px;
-}
-#orders .p-info .info a {
-    display: block;
-}
-#orders .o-item {
-    margin-bottom: 15px;
-    border: solid 1px #eee;
-}
-#orders .o-info {
-    background: #efefef;
-    padding: 10px 15px;
+.wrap-setting .content .radio-inline {
+  line-height: 1.6;
 }

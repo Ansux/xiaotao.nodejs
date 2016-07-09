@@ -11,6 +11,7 @@ block content
                 th 上架
                 th 删除
                 th 创建时间
+                th 操作
         tbody
             each item in products
                 tr
@@ -22,3 +23,9 @@ block content
                     td
                       span(class='glyphicon glyphicon-#{item.isDelete===true?"ok":"remove"}')
                     td= moment(item.meta.createAt).format('YYYY/MM/DD')
+                    td
+                      a() #{item.isOnsale===true?"下架":"上架"}
+                      |  / 
+                      a() 编辑
+                      |  / 
+                      a() 详情

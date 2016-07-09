@@ -91,9 +91,12 @@ router.post('/product/create', function(req, res) {
 router.get('/orders', function(req, res) {
   var store = req.session.store._id;
   Order.StoreOrders(store, function(err, orders) {
-    var promise = new Promise(function (resolve,reject) {
-      orders.forEach(function (v,k) {
-        Orderitem.findByOid(v._id,function (err,ois) {
+    var promise = new Promise(function(resolve, reject) {
+      if (orders.length === 0) {
+        resolve(orders);
+      };
+      orders.forEach(function(v, k) {
+        Orderitem.findByOid(v._id, function(err, ois) {
           v.oitems = ois;
           if (k == (orders.length - 1)) {
             resolve(orders);
@@ -101,12 +104,36 @@ router.get('/orders', function(req, res) {
         });
       });
     });
-    promise.then(function (orders) {
+    promise.then(function(orders) {
       res.render('./store/orders', {
         title: '订单列表',
         orders: orders
       });
     });
+  });
+});
+
+router.get('/delivery/:id', function(req, res) {
+  var id = req.params.id;
+  Order.findById(id, function(err, order) {
+    Orderitem.findByOid(id, function(err, ois) {
+      res.render('./store/delivery', {
+        title: '发货',
+        order: order,
+        ois: ois
+      });
+    });
+  });
+});
+
+router.get('/baseinfo', function(req, res) {
+  res.render('./store/baseinfo', {
+    title: '基本资料'
+  });
+});
+router.get('/avatar', function(req, res) {
+  res.render('./store/avatar', {
+    title: '头像设置'
   });
 });
 
