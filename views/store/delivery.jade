@@ -18,7 +18,31 @@ block content
         span 确认收货
       li
         span 评价
-  .order-info
+  .clearfix.order-info
+    .info-block
+      .title 订单信息
+      .more
+        dl
+          dt 收货地址：
+          dd #{order.receiver},#{order.phone},#{order.addr}
+          dt 买家留言：
+          dd 请尽快发货。
+          dt 订单编号：
+          dd= order._id
+    .status-block
+      .status
+        span(class="glyphicon glyphicon-#{order.status>2?'ok-circle':'time'}")
+        span.text
+          | 订单状态: 
+          case order.status
+            when 1
+              待发货
+            when 2
+              运输中
+            when 3
+              已收货
+            when 4
+              已评价
   .order-gitem
     table.table
       thead
