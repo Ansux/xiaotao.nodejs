@@ -1,6 +1,6 @@
 var gulp = require('gulp'),
   ngAnnotate = require('gulp-ng-annotate'),
-  sass = require('gulp-ruby-sass'),
+  sass = require('gulp-sass'),
   autoprefixer = require('gulp-autoprefixer'),
   jshint = require('gulp-jshint'),
   uglify = require('gulp-uglify'),
@@ -26,9 +26,12 @@ gulp.task('scripts', function() {
 });
 
 gulp.task('sass', function () {
-  return sass('public/sass/*.scss')
-    .on('error',sass.logError)
-    .pipe(gulp.dest('assets/css'));
+  return gulp.src('public/sass/*.scss')
+    .pipe(sass())
+    .pipe(gulp.dest('assets/css'))
+    .pipe(notify({
+      message: 'Sass task complete!'
+    }));
 });
 
 gulp.task('watch', function() {

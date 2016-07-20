@@ -1,15 +1,18 @@
 extends ../layout/student
 
 block content
-    .row.prolist
-        each item in products
-            .col-md-3.col-sm-4.col-xs-6
-                .thumbnail
-                    a
-                        img(src=item.oriImg)
-                    .caption
-                        .row-1.clearfix
-                            .price ¥#{item.price}
-                            .sales 销量#{item.sales}
-                        .row-2
-                            a(target="_blank",href="/product/detail/#{item._id}")=item.name
+  .row.prolist
+    each item in products
+      .col-md-3.col-sm-4.col-xs-6
+        .thumbnail
+          a
+            img(src=item.oriImg)
+          .caption
+            .row-1.clearfix
+              .price ¥#{item.price}
+              .sales 销量#{item.sales}
+            .row-2
+              a(target="_blank",href="/product/detail/#{item._id}")=item.name
+  nav#pager(link="prolist",count="#{pageCount}",current="#{pageCurrent}")
+block scripts
+  script(src="/javascripts/funcs.js")

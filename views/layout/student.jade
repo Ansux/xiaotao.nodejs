@@ -8,55 +8,55 @@ html
     link(rel='stylesheet', href='/stylesheets/student.css')
   body
     nav.navbar.navbar-default
-        .container
-            .navbar-header
-                button.navbar-toggle.collapsed(type='button',data-toggle='collapse',data-target='#navbar')
-                    span.sr-only
-                    span.icon-bar
-                    span.icon-bar
-                    span.icon-bar
-                a.navbar-brand 校淘网
-            .collapse.navbar-collapse#navbar
-                ul.nav.navbar-nav
-                    li
-                        a(href='/') 首页
-                    li(data-id='prolist')
-                        a(href='/prolist') 商品列表
-                    li(data-id='cart')
-                        a(href='/student/cart') 购物车
-                    li(data-id='orders')
-                        a(href='/student/orders') 我的订单
-                ul.nav.navbar-nav.navbar-right
-                    li
-                        a.dropdown-toggle(data-toggle='dropdown',aria-haspopup='true',aria-expanded='false')
-                                | 快速导航
-                                span.caret
-                            ul.dropdown-menu
-                                li
-                                    a(href='/') 学生
-                                li
-                                    a(href='/store') 店铺
-                                li
-                                    a(href='/admin') 管理员
-                    - if(!nowstu) {
-                        li
-                            a(href='/student/signin') 登录
-                        li
-                            a(href="/student/signup") 注册
-                    - } else {
-                        li.dropdown
-                            a.dropdown-toggle(data-toggle='dropdown',aria-haspopup='true',aria-expanded='false')
-                                | #{nowstu.email} 
-                                span.caret
-                            ul.dropdown-menu
-                                li
-                                    a(href='/student/baseinfo') 设置中心
-                                li
-                                    a(href='/student/signout') 登出
-                    - }
+      .container
+        .navbar-header
+          button.navbar-toggle.collapsed(type='button',data-toggle='collapse',data-target='#navbar')
+            span.sr-only
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand 校淘网
+        .collapse.navbar-collapse#navbar
+          ul.nav.navbar-nav
+            li
+              a(href='/') 首页
+            li(data-id='prolist')
+              a(href='/prolist') 商品列表
+            li(data-id='cart')
+              a(href='/student/cart') 购物车
+            li(data-id='orders')
+              a(href='/student/orders') 我的订单
+          ul.nav.navbar-nav.navbar-right
+            li
+              a.dropdown-toggle(data-toggle='dropdown',aria-haspopup='true',aria-expanded='false')
+                | 快速导航
+                span.caret
+              ul.dropdown-menu
+                li
+                  a(href='/') 学生
+                li
+                  a(href='/store') 店铺
+                li
+                  a(href='/admin') 管理员
+            - if(!nowstu) {
+              li
+                a(href='/student/signin') 登录
+              li
+                a(href="/student/signup") 注册
+            - } else {
+              li.dropdown
+                a.dropdown-toggle(data-toggle='dropdown',aria-haspopup='true',aria-expanded='false')
+                  | #{nowstu.email} 
+                  span.caret
+                ul.dropdown-menu
+                  li
+                    a(href='/student/baseinfo') 设置中心
+                  li
+                    a(href='/student/signout') 登出
+            - }
     section.render-body
-        .container
-            block content
+      .container
+        block content
     script(src='/jquery/dist/jquery.min.js')
     script(src='/bootstrap/dist/js/bootstrap.min.js')
     script(src='/javascripts/student.js')

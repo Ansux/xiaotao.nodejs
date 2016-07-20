@@ -8,6 +8,21 @@ var Category = require('../models/category');
 var Order = require('../models/order');
 var Orderitem = require('../models/orderitem');
 
+// 登录验证，获取当前登录的用户
+var sessionStore;
+router.get('*', function (req,res,next) {
+  sessionStore = req.session.store;
+  var url = req.url;
+  if (['/signin','/signup'].indexOf(url) > -1) {
+    next();
+  }else{
+    if (!sessionStore) {
+        return res.redirect('/store/signin');
+    }
+    next();
+  }
+});
+
 router.get('/', function(req, res) {
   res.render('./store/index', {
     title: '店铺中心'
@@ -53,7 +68,7 @@ router.post('/signin', function(req, res) {
         }
       });
     }
-  })
+  });
 });
 
 router.get('/signout', function(req, res) {
@@ -62,14 +77,14 @@ router.get('/signout', function(req, res) {
 });
 
 router.get('/prolist', function(req, res) {
-  var sid = req.session.store._id;
-  Product.store(sid, function(err, products) {
+  Product.store(sessionStore._id, function(err, products) {
     res.render('./store/product/list', {
       title: '商品列表',
       products: products
     });
   });
 });
+
 router.get('/product/create', function(req, res) {
   Category.list(function(err, categories) {
     res.render('./store/product/create', {
@@ -78,10 +93,9 @@ router.get('/product/create', function(req, res) {
     });
   });
 });
-
 router.post('/product/create', function(req, res) {
   var formProduct = req.body.product;
-  formProduct.store = req.session.store._id;
+  formProduct.store = sessionStore._id;
   var product = new Product(formProduct);
   product.save(function(err, product) {
     res.redirect('/store/prolist');
@@ -89,18 +103,17 @@ router.post('/product/create', function(req, res) {
 });
 
 router.get('/orders', function(req, res) {
-  var store = req.session.store._id;
-  Order.StoreOrders(store, function(err, orders) {
+  Order.StoreOrders(sessionStore._id, function(err, orders) {
     var promise = new Promise(function(resolve, reject) {
       if (orders.length === 0) {
         resolve(orders);
-      };
+      }
       orders.forEach(function(v, k) {
         Orderitem.findByOid(v._id, function(err, ois) {
           v.oitems = ois;
           if (k == (orders.length - 1)) {
             resolve(orders);
-          };
+          }
         });
       });
     });

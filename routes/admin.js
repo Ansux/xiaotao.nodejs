@@ -10,6 +10,21 @@ var Store = require('../models/store');
 var Category = require('../models/category');
 var Product = require('../models/product');
 
+var sessionAdmin;
+router.get('*',function (req,res,next) {
+  sessionAdmin = req.session.admin;
+  var url = req.url;
+  if (['/signin','/signup'].indexOf(url) > -1) {
+    next();
+  }else{
+    if (!sessionAdmin) {
+      // return res.redirect('/store/signin');
+      next();
+    }
+    next();
+  }
+});
+
 router.get('/', function(req, res) {
   res.redirect('/admin/role/list');
 });
@@ -23,7 +38,7 @@ router.get('/role/list', function(req, res, next) {
       title: '角色列表',
       roles: roles
     });
-  })
+  });
 });
 router.get('/role/create', function(req, res) {
   res.render('./admin/role/create', {
@@ -80,7 +95,7 @@ router.get('/category/list', function(req, res, next) {
       title: '角色列表',
       categories: categories
     });
-  })
+  });
 });
 router.get('/category/create', function(req, res) {
   res.render('./admin/category/create', {
@@ -152,7 +167,7 @@ router.get('/area/list', function(req, res, next) {
       title: '区域列表',
       areas: areas
     });
-  })
+  });
 });
 router.get('/area/create', function(req, res) {
   res.render('./admin/area/create', {

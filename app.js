@@ -64,7 +64,12 @@ app.use('/admin', admin);
 
 // catch 404 and forward to error handler
 app.get("*",function(req, res, next) {
-  res.render('./error/404', {
+  var controller = req.url.split("/")[1];
+  if (['student','store','admin'].indexOf(controller) === -1) {
+    controller = 'student';
+  }
+  res.render('./error/404-' + controller, {
+    controller: controller,
     title: 'No Found'
   });
 });
@@ -81,8 +86,8 @@ if (app.get('env') === 'development') {
   });
 }
 
-// production error handler
-// no stacktraces leaked to user
+// // production error handler
+// // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('./error/error', {
