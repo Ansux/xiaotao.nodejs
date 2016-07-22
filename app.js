@@ -54,6 +54,7 @@ app.locals.pretty = true;
 app.use(function(req, res, next) {
   app.locals.nowstu = req.session.student;
   app.locals.nowstore = req.session.store;
+  app.locals.nowadmin = req.session.admin;
   next();
 });
 

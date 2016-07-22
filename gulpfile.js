@@ -35,9 +35,10 @@ gulp.task('sass', function () {
 });
 
 gulp.task('watch', function() {
-  gulp.watch('public/javascripts/ng.js', ['scripts']);
+  // gulp.watch('public/javascripts/ng.js', ['scripts']);
+  gulp.watch('public/sass/*.scss',['sass']);
   livereload.listen();
-  gulp.watch(['assets/js/*']).on('change', livereload.changed);
+  gulp.watch(['assets/css/*']).on('change', livereload.changed);
 });
 
 gulp.task('default',function () {

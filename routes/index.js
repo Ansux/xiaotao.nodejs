@@ -13,7 +13,6 @@ router.get('/', function(req, res, next) {
 router.get('/prolist', function(req, res, next) {
   Product.count(function(err, count) {
     var showNumber = 8;
-    console.log('总页数： '+Math.ceil(count / showNumber));
     var pageCount = count % showNumber === 0 ? (count / showNumber) : Math.ceil(count / showNumber);
     var pageCurrent = req.query.p === undefined ? 1 : req.query.p;
     Product.list(showNumber, pageCurrent, function(err, products) {

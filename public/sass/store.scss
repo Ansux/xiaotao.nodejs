@@ -1,0 +1,104 @@
+// 变量定义
+$yahei: "微软雅黑"; // 引入文件
+// @import "variables", "okok";
+// 设置模块
+.s-setting {
+  position: relative;
+  background: #ccc;
+  padding-left: 140px;
+  border: solid 1px #ccc;
+  // 左侧导航栏
+  @at-root {
+    .s-setting-left {
+      position: absolute;
+      left: 0;
+      top: 0;
+      // 头像显示
+      .avatar {
+        margin: 15px;
+        padding: 4px;
+        background-color: #fff;
+        border: solid 1px #999;
+        border-radius: 3px;
+      }
+      // 导航栏
+      .menu {
+        ul {
+          padding-left: 0;
+          list-style: none;
+        }
+        a {
+          display: block;
+          padding: 8px 15px;
+          color: #666;
+          &:hover {}
+          &.active {
+            background-color: #eee;
+            color: #333;
+          }
+        }
+      }
+    }
+    // 右侧内容区域
+    .s-setting-right {
+      background-color: #eee;
+      .title {
+        border-bottom: solid 1px #ccc;
+        b {
+          display: inline-block;
+          padding: 5px 10px;
+          margin-top: 10px;
+          margin-left: 20px;
+          margin-bottom: -1px;
+          border: solid 1px #ccc;
+          border-bottom-color: #eee;
+        }
+      }
+      .tab-link {
+        border-bottom: solid 1px #ccc;
+        padding: 5px 0 5px 30px;
+        margin-top: 5px;
+        a {
+          display: inline-block;
+          margin-right: 30px;
+          color: #666;
+          &.active {
+            font-weight: bold;
+          }
+        }
+      }
+      .content {
+        padding: 20px;
+        .radio-inline {
+          line-height: 1.6;
+        }
+      }
+    }
+  }
+}
+
+/** 发货模块 **/
+.s-delivery {
+  // 订单步骤
+  .flowstep {
+    ol {
+      width: 100%;
+      padding: 0;
+      li {
+        width: 25%;
+        display: block;
+        float: left;
+      }
+    }
+  }
+  // 订单商品列表
+  .order-gitem {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  .form-horizontal{
+    margin-top: 20px;
+    max-width: 500px;
+    float: right;
+  }
+}

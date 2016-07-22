@@ -1,0 +1,70 @@
+@charset "UTF-8";
+.s-setting {
+  position: relative;
+  background: #ccc;
+  padding-left: 140px;
+  border: solid 1px #ccc; }
+  .s-setting-left {
+    position: absolute;
+    left: 0;
+    top: 0; }
+    .s-setting-left .avatar {
+      margin: 15px;
+      padding: 4px;
+      background-color: #fff;
+      border: solid 1px #999;
+      border-radius: 3px; }
+    .s-setting-left .menu ul {
+      padding-left: 0;
+      list-style: none; }
+    .s-setting-left .menu a {
+      display: block;
+      padding: 8px 15px;
+      color: #666; }
+      .s-setting-left .menu a.active {
+        background-color: #eee;
+        color: #333; }
+  .s-setting-right {
+    background-color: #eee; }
+    .s-setting-right .title {
+      border-bottom: solid 1px #ccc; }
+      .s-setting-right .title b {
+        display: inline-block;
+        padding: 5px 10px;
+        margin-top: 10px;
+        margin-left: 20px;
+        margin-bottom: -1px;
+        border: solid 1px #ccc;
+        border-bottom-color: #eee; }
+    .s-setting-right .tab-link {
+      border-bottom: solid 1px #ccc;
+      padding: 5px 0 5px 30px;
+      margin-top: 5px; }
+      .s-setting-right .tab-link a {
+        display: inline-block;
+        margin-right: 30px;
+        color: #666; }
+        .s-setting-right .tab-link a.active {
+          font-weight: bold; }
+    .s-setting-right .content {
+      padding: 20px; }
+      .s-setting-right .content .radio-inline {
+        line-height: 1.6; }
+
+/** 发货模块 **/
+.s-delivery .flowstep ol {
+  width: 100%;
+  padding: 0; }
+  .s-delivery .flowstep ol li {
+    width: 25%;
+    display: block;
+    float: left; }
+
+.s-delivery .order-gitem {
+  margin-top: 20px;
+  margin-bottom: 20px; }
+
+.s-delivery .form-horizontal {
+  margin-top: 20px;
+  max-width: 500px;
+  float: right; }

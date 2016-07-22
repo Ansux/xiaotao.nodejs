@@ -18,3 +18,6 @@ block content
           td
             i(class="glyphicon glyphicon-#{pro.isOnsale===true?'ok':'remove'}")
           td= moment(pro.meta.createAt).format('YYYY/MM/DD')
+  nav#pager(link="product",count="#{pageCount}",current="#{pageCurrent}")
+block scripts
+  script(src="/javascripts/funcs.js")

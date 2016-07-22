@@ -1,0 +1,22 @@
+extends ../../layout/admin
+
+block content
+  .panel.panel-default
+    .panel-heading 管理员注册
+    .panel-body
+      form.form-horizontal(method='post',action='/admin/signup')
+        .form-group
+          label.col-xs-2 账号
+          .col-xs-10
+            input.form-control(type='email',name='admin[email]')
+        .form-group
+          label.col-xs-2 密码
+          .col-xs-10
+            input.form-control(type='password',name='admin[pwd]')
+        .form-group
+          label.col-xs-2 确认密码
+          .col-xs-10
+            input.form-control(type='password',name='pwd2')
+        .form-group
+          .col-xs-offset-2.col-xs-10
+            button.btn.btn-primary(type='submit') 立即注册

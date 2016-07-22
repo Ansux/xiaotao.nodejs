@@ -5,21 +5,20 @@ var _ = require('underscore');
 var Role = require('../models/role');
 var Student = require('../models/student');
 var Area = require('../models/area');
-
+var Admin = require('../models/admin');
 var Store = require('../models/store');
 var Category = require('../models/category');
 var Product = require('../models/product');
 
 var sessionAdmin;
-router.get('*',function (req,res,next) {
+router.get('*', function(req, res, next) {
   sessionAdmin = req.session.admin;
   var url = req.url;
-  if (['/signin','/signup'].indexOf(url) > -1) {
+  if (['/signin', '/signup'].indexOf(url) > -1) {
     next();
-  }else{
+  } else {
     if (!sessionAdmin) {
-      // return res.redirect('/store/signin');
-      next();
+      return res.redirect('/admin/signin');
     }
     next();
   }
@@ -28,6 +27,56 @@ router.get('*',function (req,res,next) {
 router.get('/', function(req, res) {
   res.redirect('/admin/role/list');
 });
+
+router.get('/signin', function(req, res) {
+  if (!sessionAdmin) {
+    res.render('./admin/account/signin', {
+      title: '管理员登录'
+    });
+  }
+});
+router.post('/signin', function(req, res) {
+  var uname = req.body.uname;
+  var upwd = req.body.upwd;
+
+  Admin.findOne({
+    email: uname
+  }, function(err, admin) {
+    if (!admin) {
+      return res.redirect('/admin/signin');
+    } else {
+      admin.validPwd(upwd, function(result) {
+        if (result) {
+          req.session.admin = admin;
+          res.redirect('/admin');
+        } else {
+          res.redirect('/admin/signin');
+        }
+      });
+    }
+  });
+});
+
+router.get('/signup', function(req, res) {
+  if (!sessionAdmin) {
+    res.render('./admin/account/signup', {
+      title: '管理员注册'
+    });
+  } else {
+    return res.redirect('/admin');
+  }
+});
+router.post('/signup', function(req, res) {
+  var formAdmin = req.body.admin;
+  var admin = new Admin(formAdmin);
+  admin.save(function(err, admin) {
+    if (err) {
+      console.log(err);
+    }
+    res.redirect('/admin');
+  });
+});
+
 // role-router
 router.get('/role', function(req, res, next) {
   res.redirect('/admin/role/list');
@@ -228,10 +277,17 @@ router.get('/student/list', function(req, res) {
 });
 
 router.get('/product', function(req, res) {
-  Product.list(function(err, pros) {
-    res.render('./admin/product/list', {
-      title: '商品列表',
-      products: pros
+  var pageCurrent = req.query.p === undefined ? 1 : req.query.p;
+  var showNum = 10;
+  Product.count(function(err, count) {
+    var pageCount = count % showNum === 0 ? (count / showNum) : Math.ceil(count / showNum);
+    Product.list(showNum, pageCurrent, function(err, pros) {
+      res.render('./admin/product/list', {
+        title: '商品列表',
+        products: pros,
+        pageCount: pageCount,
+        pageCurrent: pageCurrent
+      });
     });
   });
 });

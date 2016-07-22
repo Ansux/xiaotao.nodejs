@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 
 var _ = require('underscore');
+var bcrypt = require('bcrypt-nodejs');
+
 var Store = require('../models/store');
 var Product = require('../models/product');
 var Category = require('../models/category');
@@ -10,14 +12,14 @@ var Orderitem = require('../models/orderitem');
 
 // 登录验证，获取当前登录的用户
 var sessionStore;
-router.get('*', function (req,res,next) {
+router.get('*', function(req, res, next) {
   sessionStore = req.session.store;
   var url = req.url;
-  if (['/signin','/signup'].indexOf(url) > -1) {
+  if (['/signin', '/signup'].indexOf(url) > -1) {
     next();
-  }else{
+  } else {
     if (!sessionStore) {
-        return res.redirect('/store/signin');
+      return res.redirect('/store/signin');
     }
     next();
   }
@@ -138,6 +140,25 @@ router.get('/delivery/:id', function(req, res) {
     });
   });
 });
+router.post('/delivery', function(req, res) {
+  var safePwd = req.body.safePwd;
+  var oid = req.body.oid;
+  Store.findById(sessionStore._id, function(err, store) {
+    store.validSafePwd(safePwd, function(result) {
+      console.log(result);
+      // 安全密码验证通过
+      if (result === true) {
+        Order.findOneAndUpdate({
+          _id: oid
+        }, {
+          status: 2
+        }, null, function(e, model) {
+          return res.redirect('/store/orders');
+        });
+      }
+    });
+  });
+});
 
 router.get('/baseinfo', function(req, res) {
   res.render('./store/baseinfo', {
@@ -147,6 +168,57 @@ router.get('/baseinfo', function(req, res) {
 router.get('/avatar', function(req, res) {
   res.render('./store/avatar', {
     title: '头像设置'
+  });
+});
+
+router.get('/pwd', function(req, res) {
+  res.render('./store/safepwd', {
+    title: '修改密码'
+  });
+});
+router.post('/pwd', function(req, res) {
+  var oldPwd = req.body.oldPwd;
+  var newPwd = req.body.newPwd;
+
+  Store.findById(sessionStore._id, function(err, store) {
+    store.validPwd(oldPwd, function(result) {
+      if (result === true) {
+        store.pwd = bcrypt.hashSync(newPwd);
+        store.save(function(e, model) {
+          console.log(e);
+          console.log(model);
+        });
+      } else {
+        console.log('原始密码输入有误！');
+      }
+    });
+  });
+});
+
+router.get('/safePwd', function(req, res) {
+  res.render('./store/safepwd', {
+    title: '修改安全密码'
+  });
+});
+router.post('/safePwd', function(req, res) {
+  var pwd = req.body.safePwd;
+
+  Store.findById(sessionStore._id, function(err, store) {
+    store.safePwd = bcrypt.hashSync(pwd);
+    store.save(function(e, model) {
+      console.log(model);
+    });
+    // store.validPwd(oldPwd, function(result) {
+    //   if (result === true) {
+    //     store.pwd = bcrypt.hashSync(newPwd);
+    //     store.save(function (e, model) {
+    //       console.log(e);
+    //       console.log(model);
+    //     });
+    //   }else{
+    //     console.log('原始密码输入有误！');
+    //   }
+    // });
   });
 });
 

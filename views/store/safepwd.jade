@@ -1,0 +1,14 @@
+extends ../layout/store
+
+block content
+  .panel.panel-default
+    .panel-heading 设置安全密码
+    .panel-body
+      form.form-horizontal(method='post',action='/store/safePwd')
+        .form-group
+          label.col-xs-2 新密码
+          .col-xs-10
+            input.form-control(type='password',name='safePwd')
+        .form-group
+          .col-xs-offset-2.col-xs-10
+            button.btn.btn-primary(type='submit') 提交
