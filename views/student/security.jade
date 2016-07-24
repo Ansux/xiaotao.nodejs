@@ -1,8 +1,8 @@
 extends ../layout/student
 
 block content
-  .wrap-setting
-    .left-menu
+  .s-setting
+    .s-setting-left
       .avatar
         a
           img(src="https://wwc.alicdn.com/avatar/getAvatar.do?userId=615494192&width=100&height=100&type=sns", width="", height="", alt="")
@@ -18,7 +18,7 @@ block content
             a(href='/student/privacy') 隐私设置
           li
             a(href='/student/notify') 网站提醒
-    .right-box
+    .s-setting-right
       .title
         b 安全设置
       .content
@@ -47,12 +47,20 @@ block content
               .col-sm-2.operate
                 a.security-modal(data-url="phone",data-title="修改手机") 修改
             li.row
-              .col-sm-1.status
-                span.glyphicon.glyphicon-ok
-              .col-sm-2.name 支付密码
-              .col-sm-7.info 安全程度：中。建议您设置更高强度的密码。
-              .col-sm-2.operate
-                a.security-modal(data-url="paypwd",data-title="修改支付密码") 修改
+              - if(stu.payPwd)
+                .col-sm-1.status
+                  span.glyphicon.glyphicon-ok
+                .col-sm-2.name 支付密码
+                .col-sm-7.info 安全程度：中。建议您设置更高强度的密码。
+                .col-sm-2.operate
+                  a.security-modal(data-url="paypwd",data-title="修改支付密码") 修改
+              - else 
+                .col-sm-1.status
+                  span.glyphicon.glyphicon-remove
+                .col-sm-2.name 支付密码
+                .col-sm-7.info 当前未设置支付密码，请设置。
+                .col-sm-2.operate
+                  a.security-modal(data-url="paypwd",data-title="设置支付密码") 设置
             li.row
               .col-sm-1.status
                 span.glyphicon.glyphicon-ok

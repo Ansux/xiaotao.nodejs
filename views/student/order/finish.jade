@@ -1,0 +1,68 @@
+extends ../../layout/student
+
+block content
+  .s-delivery
+    .crumbs
+      ol.breadcrumb
+        li
+          a(href="") 首页
+        li
+          a(href="") 订单列表
+        li.active 发货
+    .flowstep
+      ol.clearfix
+        li
+          span 拍下商品
+        li
+          span 卖家发货
+        li
+          span 确认收货
+        li
+          span 评价
+    .clearfix.order-info
+      .info-block
+        .title 订单信息
+        .more
+          dl
+            dt 收货地址：
+            dd #{order.receiver},#{order.phone},#{order.addr}
+            dt 买家留言：
+            dd 请尽快发货。
+            dt 订单编号：
+            dd= order._id
+      .status-block
+        .status
+          span(class="glyphicon glyphicon-#{order.status>2?'ok-circle':'time'}")
+          span.text
+            | 订单状态: 
+            case order.status
+              when 1
+                待发货
+              when 2
+                运输中
+              when 3
+                已收货
+              when 4
+                已评价
+    .order-gitem
+      table.table
+        thead
+          tr
+            th 商品
+            th 单价
+            th 数量
+            th 小计
+        tbody
+          each item in ois
+            tr
+              td= item.product.name
+              td= item.price
+              td= item.number
+              td= item.price * item.number
+    - if(order.status===2)
+      form.form-horizontal(action="/student/order/finish", method="post")
+        input(type="hidden",name="oid",value="#{order._id}")
+        .input-group
+          input.form-control(type="password",name="payPwd",placeholder="输入支付密码.",required)
+          span.input-group-btn
+            button.btn.btn-danger(type="submit") 确认收货

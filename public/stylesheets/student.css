@@ -23,7 +23,6 @@
 
 /*商品详情页*/
 
-.g-intro {}
 .g-intro .focus img {
   width: 100%;
 }
@@ -38,7 +37,6 @@
 .g-intro .right {
   margin-left: 80px;
 }
-.g-intro .info-items {}
 .g-intro .item-name {
   font-size: 20px;
 }
@@ -58,7 +56,7 @@
 }
 .cart-wrap .store-item .info input {
   float: left;
-  margin-top: 0px;
+  margin-top: 0;
   margin-right: 5px;
 }
 .cart-wrap .store-item .info {
@@ -163,11 +161,10 @@
   font-size: 15px;
   font-family: verdana;
 }
-.cart-wrap .settle em.money {
+.cart-wrap .settle .money {
   font-size: 22px;
   font-weight: 700;
 }
-.settle-addrs {}
 .settle-addrs .thumbnail {
   position: relative;
   cursor: pointer;
@@ -199,8 +196,8 @@
 }
 .wrap-setting .left-menu {
   position: absolute;
-  left: 0px;
-  top: 0px;
+  left: 0;
+  top: 0;
 }
 .wrap-setting .avatar {
   margin: 15px;
@@ -216,7 +213,6 @@
 .wrap-setting .menu li a {
   display: block;
   padding: 8px 15px;
-  width: 100%;
   color: #666;
 }
 .wrap-setting .menu li a.active {
@@ -273,8 +269,8 @@
   list-style: none;
 }
 .security-item li {
-  margin-left: 0px;
-  margin-right: 0px;
+  margin-left: 0;
+  margin-right: 0;
   padding: 20px 0;
   border-bottom: solid 1px #ccc;
 }

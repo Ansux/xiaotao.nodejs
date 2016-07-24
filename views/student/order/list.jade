@@ -1,12 +1,34 @@
 extends ../../layout/student
 
 block content
-  #orders
+  .s-orders
     .row.header
       .col-xs-7 订单详情
       .col-xs-1 金额
       .col-xs-1 收货人
-      .col-xs-2 状态
+      .col-xs-2
+        .w-status
+          .text
+            case status.active
+              when 8
+                span 全部状态
+              when 1
+                span 待发货
+              when 2
+                span 待收货
+              when 3
+                span 已完成
+            i.glyphicon.glyphicon-menu-down
+          .list
+            ul
+              each s in status.list
+                - if (s.code === status.active) 
+                  li.active
+                    a(href="/student/orders?s=#{s.code}")= s.text
+                    span.glyphicon.glyphicon-ok
+                - else 
+                  li
+                    a(href="/student/orders?s=#{s.code}")= s.text
       .col-xs-1 操作
     .row.list
       - if(orders)
@@ -48,6 +70,6 @@ block content
                 td.col-xs-1
                   case o.status
                     when 2
-                      a() 确认收货
+                      a(href='/student/order/finish/#{o._id}') 确认收货
                     when 3
                       a() 去评价

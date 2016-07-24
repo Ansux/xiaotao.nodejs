@@ -208,17 +208,6 @@ router.post('/safePwd', function(req, res) {
     store.save(function(e, model) {
       console.log(model);
     });
-    // store.validPwd(oldPwd, function(result) {
-    //   if (result === true) {
-    //     store.pwd = bcrypt.hashSync(newPwd);
-    //     store.save(function (e, model) {
-    //       console.log(e);
-    //       console.log(model);
-    //     });
-    //   }else{
-    //     console.log('原始密码输入有误！');
-    //   }
-    // });
   });
 });
 

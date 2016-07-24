@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var _ = require('underscore');
+var bcrypt = require('bcrypt-nodejs');
 
 var Student = require('../models/student');
 var Area = require('../models/area');
@@ -176,7 +177,8 @@ router.post('/address/delete', function(req, res) {
 // 安全中心
 router.get('/security', function(req, res) {
   res.render('./student/security', {
-    title: '安全中心'
+    title: '安全中心',
+    stu: 　sessionStu
   });
 });
 router.get('/security/password', function(req, res) {
@@ -202,12 +204,37 @@ router.post('/security/email', function(req, res) {
 router.get('/security/phone', function(req, res) {
   res.render('./student/security/phone', {});
 });
-router.post('/security/phone', function(req, res) {
-});
+router.post('/security/phone', function(req, res) {});
 router.get('/security/paypwd', function(req, res) {
-  res.render('./student/security/paypwd', {});
+  res.render('./student/security/paypwd', {
+    title: '支付密码',
+    flag: sessionStu.payPwd
+  });
 });
 router.post('/security/paypwd', function(req, res) {
+  var pwd = bcrypt.hashSync(req.body.pwd);
+  Student.findById(sessionStu._id, function(e, stu) {
+    // 修改支付密码。
+    var promise = new Promise(function(resolve, reject) {
+      if (stu.payPwd) {
+        var rawPwd = req.body.rawPwd;
+        stu.validPayPwd(rawPwd, function(result) {
+          if (result === true) resolve();
+          reject();
+        });
+      } else {
+        resolve();
+      }
+    });
+    promise.then(function() {
+      stu.payPwd = pwd;
+      stu.save(function(err, model) {
+        console.log(model);
+      });
+    }, function() {
+      console.log('error');
+    });
+  });
 });
 router.get('/security/certify', function(req, res) {
   res.render('./student/security/certify', {});
@@ -429,9 +456,33 @@ router.post('/order/create', function(req, res) {
   });
 });
 router.get('/orders', function(req, res) {
-
-  Order.stuOrders(sessionStu._id, function(err, orders) {
+  var currentStatus = req.query.s === undefined ? 8 : req.query.s;
+  var currentPage = req.query.p === undefined ? 1 : req.query.p;
+  var status = {
+    list: [{
+      code: 8,
+      text: '全部状态'
+    }, {
+      code: 1,
+      text: '待发货'
+    }, {
+      code: 2,
+      text: '待收货'
+    }, {
+      code: 3,
+      text: '已完成'
+    }],
+    active: parseInt(currentStatus)
+  };
+  var query = {
+    buyer: sessionStu._id
+  };
+  if (status.active !== 8) {
+    query.status = status.active;
+  }
+  Order.stuOrders(query, function(err, orders) {
     var promise = new Promise(function(resolve, reject) {
+      if (orders.length === 0) resolve(orders);
       orders.forEach(function(v, k) {
         Orderitem.findByOid(v._id, function(err, ois) {
           v.oitems = ois;
@@ -444,10 +495,43 @@ router.get('/orders', function(req, res) {
     promise.then(function(orders) {
       res.render('./student/order/list', {
         title: '我的订单',
-        orders: orders
+        orders: orders,
+        status: status
       });
     }, function(value) {
+      console.log('error');
+    });
+  });
+});
 
+router.get('/order/finish/:id', function(req, res) {
+  var oid = req.params.id;
+  Order.findById(oid, function(err, order) {
+    Orderitem.findByOid(order._id, function(e, ois) {
+      res.render('./student/order/finish', {
+        title: '确认收货',
+        order: order,
+        ois: ois
+      });
+    });
+  });
+});
+router.post('/order/finish', function(req, res) {
+  var oid = req.body.oid;
+  var pwd = req.body.payPwd;
+  Student.findById(sessionStu._id, function(e, stu) {
+    stu.validPayPwd(pwd, function(result) {
+      if (!result) return;
+      Order.findOneAndUpdate({
+        _id: oid
+      }, {
+        status: 3,
+        meta: {
+          finishAt: Date.now()
+        }
+      }, null, function(err, model) {
+        return res.redirect('/student/orders/');
+      });
     });
   });
 });

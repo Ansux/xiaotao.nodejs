@@ -31,11 +31,9 @@ OrderSchema.pre('save', function(next) {
 });
 
 OrderSchema.statics = {
-  stuOrders: function(student, callback) {
+  stuOrders: function(query, callback) {
     return this
-      .find({
-        buyer: student
-      })
+      .find(query)
       .populate('store', {
         name: 1
       })

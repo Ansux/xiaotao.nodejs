@@ -1,55 +1,55 @@
 extends ../../layout/student
 
 block content
-    .section-settle(ng-app='mySettle',ng-controller='mySettle')
-        .row.settle-addrs
-            .col-xs-12.title 选择收货地址
-            .col-md-3.col-sm-4.col-xs-6(ng-repeat="addr in addrs")
-                .thumbnail(ng-class="{'select':addr.select}",ng-click="select(addr)")
-                    .default-flag(ng-if='addr.isDefault') 默认地址
-                    p(ng-bind-template='{{addr.area.name}} 区 （{{addr.receiver}} 收）')
-                    p(ng-bind-template='{{addr.addr}} {{addr.phone}}')
-        .cart-wrap
-            .header
-                .row
-                    .col-xs-8
-                        |  全部商品
-                    .col-xs-1 单价(元)
-                    .col-xs-2 数量
-                    .col-xs-1 金额(元)
-            form(method='post',action='/student/order/create')
-                - var amount=0,items=0;
-                each item in stores
-                    .store-item
-                        .info
-                            | 店铺：#{item.store.name}
-                        .pro-items
-                            each cart in item.prolist
-                                - amount+=cart.number*cart.product.price;
-                                - items+=1;
-                                .item.row
-                                    .col-xs-8.pro-info
-                                        .fixed
-                                            img(src="#{cart.product.oriImg}", width="30", alt="#{cart.product.name}")
-                                        .right
-                                            a(target="_blank",href="/product/detail/#{cart.product._id}")= cart.product.name
-                                    .col-xs-1= cart.product.price
-                                    .col-xs-2
-                                        .number-control= cart.number
-                                    .col-xs-1= cart.number*cart.product.price
-                .settle
-                    .account
-                        span
-                            | 总计：
-                            em.money
-                                | ¥ #{amount}
-                        span
-                            | 共有(商品)：
-                            em= items
-                            |  件
-                    .btn-settle
-                        input(type='hidden',name='addr',value='{{hasAddr._id}}')
-                        button(type='submit',ng-disabled="hasAddr===undefined") 提交订单
+  .section-settle(ng-app='mySettle',ng-controller='mySettle')
+    .row.settle-addrs
+      .col-xs-12.title 选择收货地址
+      .col-md-3.col-sm-4.col-xs-6(ng-repeat="addr in addrs")
+        .thumbnail(ng-class="{'select':addr.select}",ng-click="select(addr)")
+          .default-flag(ng-if='addr.isDefault') 默认地址
+          p(ng-bind-template='{{addr.area.name}} 区 （{{addr.receiver}} 收）')
+          p(ng-bind-template='{{addr.addr}} {{addr.phone}}')
+    .cart-wrap
+      .header
+        .row
+          .col-xs-8
+            |  全部商品
+          .col-xs-1 单价(元)
+          .col-xs-2 数量
+          .col-xs-1 金额(元)
+      form(method='post',action='/student/order/create')
+        - var amount=0,items=0;
+        each item in stores
+          .store-item
+            .info
+              | 店铺：#{item.store.name}
+            .pro-items
+              each cart in item.prolist
+                - amount+=cart.number*cart.product.price;
+                - items+=1;
+                .item.row
+                  .col-xs-8.pro-info
+                    .fixed
+                      img(src="#{cart.product.oriImg}", width="30", alt="#{cart.product.name}")
+                    .right
+                      a(target="_blank",href="/product/detail/#{cart.product._id}")= cart.product.name
+                  .col-xs-1= cart.product.price
+                  .col-xs-2
+                    .number-control= cart.number
+                  .col-xs-1= cart.number*cart.product.price
+        .settle
+          .account
+            span
+              | 总计：
+              em.money
+                | ¥ #{amount}
+            span
+              | 共有(商品)：
+              em= items
+              |  件
+          .btn-settle
+            input(type='hidden',name='addr',value='{{hasAddr._id}}')
+            button(type='submit',ng-disabled="hasAddr===undefined") 提交订单
 block scripts
-    script(src='/javascripts/angular.min.js')
-    script(src='/javascripts/ng.js')
+  script(src='/javascripts/angular.min.js')
+  script(src='/javascripts/ng.js')
