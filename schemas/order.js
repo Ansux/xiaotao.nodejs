@@ -20,6 +20,10 @@ var OrderSchema = new mongoose.Schema({
     createAt: Date,
     deliverAt: Date,
     finishAt: Date
+  },
+  mark: {
+    service: Number,
+    delivery: Number
   }
 });
 

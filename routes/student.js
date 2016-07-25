@@ -536,5 +536,22 @@ router.post('/order/finish', function(req, res) {
   });
 });
 
+router.get('/order/comment/:id',function (req,res) {
+  var oid = req.params.id;
+  Order.findById(oid, function (e, order) {
+    Orderitem.findByOid(oid, function (err, ois) {
+      res.render('./student/order/comment',{
+        title: '评价',
+        order: order,
+        ois: ois
+      });
+    });
+  });
+});
+
+router.post('/order/comment',function (req,res) {
+  var oid = req.body.oid;
+  console.log(req.body);
+});
 
 module.exports = router;
