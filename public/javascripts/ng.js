@@ -293,3 +293,8 @@ angular.module('mySettle', ['root'])
       }
     };
   });
+
+angular.module('myComment',['root'])
+  .controller('myComment',function ($scope) {
+    
+  });

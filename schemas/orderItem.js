@@ -12,6 +12,7 @@ var OrderitemSchema = new mongoose.Schema({
   },
   price: Number,
   number: Number,
+  mark: Number,
   isCommet: {
     type: Boolean,
     default: false
