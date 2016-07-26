@@ -536,11 +536,14 @@ router.post('/order/finish', function(req, res) {
   });
 });
 
-router.get('/order/comment/:id',function (req,res) {
+/**
+ * 订单评论
+ */
+router.get('/order/comment/:id', function(req, res) {
   var oid = req.params.id;
-  Order.findById(oid, function (e, order) {
-    Orderitem.findByOid(oid, function (err, ois) {
-      res.render('./student/order/comment',{
+  Order.findById(oid, function(e, order) {
+    Orderitem.findByOid(oid, function(err, ois) {
+      res.render('./student/order/comment', {
         title: '评价',
         order: order,
         ois: ois
@@ -548,10 +551,38 @@ router.get('/order/comment/:id',function (req,res) {
     });
   });
 });
-
-router.post('/order/comment',function (req,res) {
+router.post('/order/comment', function(req, res) {
   var oid = req.body.oid;
-  console.log(req.body);
+  var formDatas = req.body;
+  Order.findById(oid, function(e, order) {
+    var promise = new Promise(function(resolve, reject) {
+      Orderitem.findByOid(oid, function(err, ois) {
+        ois.forEach(function(v, k) {
+          v.mark = formDatas[v._id].mark;
+          v.comment = formDatas[v._id].comment;
+          if (v.comment) {
+            v.isCommet = true;
+          } else {
+            v.comment = undefined;
+          }
+          v.save(function() {
+            if (k === (ois.length - 1)) resolve();
+          });
+        });
+      });
+    });
+
+    promise.then(function() {
+      order.mark = {
+        service: formDatas.service,
+        delivery: formDatas.delivery
+      };
+      order.status = 4;
+      order.save(function() {
+        res.redirect('/student/orders');
+      });
+    });
+  });
 });
 
 module.exports = router;
