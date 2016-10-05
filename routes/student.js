@@ -13,9 +13,8 @@ var Order = require('../models/order');
 var Orderitem = require('../models/orderItem');
 
 // 登录验证过滤器, 并获取当前登录用户的信息
-var sessionStu;
 router.get('*', function(req, res, next) {
-  sessionStu = req.session.student;
+  var sessionStu = req.session.student;
   var url = req.url;
   if (['/signin', '/signup'].indexOf(url) > -1) {
     next();
@@ -26,6 +25,7 @@ router.get('*', function(req, res, next) {
     next();
   }
 });
+
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -50,7 +50,8 @@ router.post('/signup', function(req, res) {
 });
 
 router.get('/signin', function(req, res) {
-  if (sessionStu) {
+  var student = req.session.student;
+  if (student) {
     res.redirect('/student');
   }
   res.render('./student/signin', {
@@ -121,17 +122,19 @@ router.post('/area', function(req, res) {
   });
 });
 router.post('/address', function(req, res) {
-  Address.list(sessionStu._id, function(err, addrs) {
+  var student = req.session.student;
+  Address.list(student._id, function(err, addrs) {
     res.json(addrs);
   });
 });
 router.post('/address/save', function(req, res) {
+  var student = req.session.student;
   var formAddr = req.body.addr,
     _addr;
 
   // 默认地址处理
   if (formAddr.isDefault == 'true') {
-    Address.list(sessionStu._id, function(err, addrs) {
+    Address.list(student._id, function(err, addrs) {
       if (addrs.length > 0) {
         addrs.forEach(function(v, k) {
           if (v.isDefault === true) {
@@ -176,9 +179,10 @@ router.post('/address/delete', function(req, res) {
 
 // 安全中心
 router.get('/security', function(req, res) {
+  var student = req.session.student;
   res.render('./student/security', {
     title: '安全中心',
-    stu: 　sessionStu
+    stu: 　student
   });
 });
 router.get('/security/password', function(req, res) {
@@ -206,14 +210,17 @@ router.get('/security/phone', function(req, res) {
 });
 router.post('/security/phone', function(req, res) {});
 router.get('/security/paypwd', function(req, res) {
+  var student = req.session.student;  
   res.render('./student/security/paypwd', {
     title: '支付密码',
-    flag: sessionStu.payPwd
+    flag: student.payPwd
   });
 });
 router.post('/security/paypwd', function(req, res) {
+  var student = req.session.student;
+  
   var pwd = bcrypt.hashSync(req.body.pwd);
-  Student.findById(sessionStu._id, function(e, stu) {
+  Student.findById(student._id, function(e, stu) {
     // 修改支付密码。
     var promise = new Promise(function(resolve, reject) {
       if (stu.payPwd) {
@@ -248,10 +255,12 @@ router.get('/cart', function(req, res) {
 router.post('/cart', function(req, res) {
   var product = req.body.proId;
   var number = req.body.number;
+  var student = req.session.student;
+  
   var store;
   Product.findById(product, function(err, pro) {
     store = pro.store;
-    Cart.list(sessionStu._id, function(err, cart) {
+    Cart.list(student, function(err, cart) {
       if (cart === null) {
         cart = new Cart({
           student: student,
@@ -295,7 +304,9 @@ router.post('/cart', function(req, res) {
   });
 });
 router.get('/getCart', function(req, res) {
-  Cart.list(sessionStu._id, function(err, carts) {
+  var student = req.session.student;
+  
+  Cart.list(student._id, function(err, carts) {
     res.json(carts);
   });
 });
@@ -318,11 +329,13 @@ function GetArrIndexById(arr, type, value) {
 router.post('/ngcart', function(req, res) {
   var action = req.body.action;
   var pid = req.body.product;
+  var student = req.session.student;
+  
   var product;
   Product.findById(pid, function(err, pro) {
     product = pro;
   });
-  Cart.list(sessionStu._id, function(err, cart) {
+  Cart.list(student._id, function(err, cart) {
     var storeIndex = GetArrIndexById(cart.stores, 's', product.store._id);
     var prolist = cart.stores[storeIndex].prolist;
     var proIndex = GetArrIndexById(prolist, 'p', product._id);
@@ -395,6 +408,8 @@ router.post('/settle', function(req, res) {
 });
 
 router.post('/order/create', function(req, res) {
+  var student = req.session.student;
+  
   var stores = req.session.settle;
   var addrId = req.body.addr;
   var cartItems = [],
@@ -409,7 +424,7 @@ router.post('/order/create', function(req, res) {
     orderObj.addr = addr.addr;
     orderObj.phone = addr.phone;
     orderObj.status = 1;
-    orderObj.buyer = sessionStu._id;
+    orderObj.buyer = student._id;
     orderObj.amount = 0;
 
     stores.forEach(function(v, k) {
@@ -456,6 +471,8 @@ router.post('/order/create', function(req, res) {
   });
 });
 router.get('/orders', function(req, res) {
+  var student = req.session.student;
+  
   var currentStatus = req.query.s === undefined ? 8 : req.query.s;
   var currentPage = req.query.p === undefined ? 1 : req.query.p;
   var status = {
@@ -475,7 +492,7 @@ router.get('/orders', function(req, res) {
     active: parseInt(currentStatus)
   };
   var query = {
-    buyer: sessionStu._id
+    buyer: student._id
   };
   if (status.active !== 8) {
     query.status = status.active;
@@ -517,9 +534,11 @@ router.get('/order/finish/:id', function(req, res) {
   });
 });
 router.post('/order/finish', function(req, res) {
+  var student = req.session.student;
+  
   var oid = req.body.oid;
   var pwd = req.body.payPwd;
-  Student.findById(sessionStu._id, function(e, stu) {
+  Student.findById(student._id, function(e, stu) {
     stu.validPayPwd(pwd, function(result) {
       if (!result) return;
       Order.findOneAndUpdate({
@@ -552,12 +571,15 @@ router.get('/order/comment/:id', function(req, res) {
   });
 });
 router.post('/order/comment', function(req, res) {
+  var student = req.session.student;
+  
   var oid = req.body.oid;
   var formDatas = req.body;
   Order.findById(oid, function(e, order) {
     var promise = new Promise(function(resolve, reject) {
       Orderitem.findByOid(oid, function(err, ois) {
         ois.forEach(function(v, k) {
+          v.student = student._id;
           v.mark = formDatas[v._id].mark;
           v.comment = formDatas[v._id].comment;
           if (v.comment) {

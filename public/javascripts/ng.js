@@ -1,18 +1,18 @@
-Array.prototype.indexOf = function(val) {
+Array.prototype.indexOf = function (val) {
   for (var i = 0; i < this.length; i++) {
     if (this[i] == val) return i;
   }
   return -1;
 };
 
-Array.prototype.remove = function(val) {
+Array.prototype.remove = function (val) {
   var index = this.indexOf(val);
   if (index > -1) {
     this.splice(index, 1);
   }
 };
 
-Array.prototype.moveToFirst = function(val) {
+Array.prototype.moveToFirst = function (val) {
   var index = this.indexOf(val);
   var first = this[index];
   this.splice(index, 1);
@@ -22,8 +22,8 @@ Array.prototype.moveToFirst = function(val) {
 angular.module('root', [], function provider($httpProvider) {
   "use strict";
   $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
-  $httpProvider.defaults.transformRequest = [function(data) {
-    var param = function(obj) {
+  $httpProvider.defaults.transformRequest = [function (data) {
+    var param = function (obj) {
       var query = '';
       var name, value, fullSubName, subName, subValue, innerObj, i;
       for (name in obj) {
@@ -55,18 +55,18 @@ angular.module('root', [], function provider($httpProvider) {
 });
 
 angular.module('myCart', ['root'])
-  .controller('myCart',['$scope','$http','$q', function($scope, $http, $q) {
+  .controller('myCart', ['$scope', '$http', '$q', function ($scope, $http, $q) {
     "use strict";
-    $http.get('/student/getCart?t=' + new Date().getTime()).success(function(res) {
+    $http.get('/student/getCart?t=' + new Date().getTime()).success(function (res) {
       $scope.stores = res.stores;
     });
 
     // 删除
-    $scope.delete = function(store, cart) {
+    $scope.delete = function (store, cart) {
       $http.post('/student/ngcart', {
         action: 'delete',
         product: cart.product._id
-      }).success(function(res) {
+      }).success(function (res) {
         if (res === true) {
           store.prolist.remove(cart);
           if (store.prolist.length === 0) {
@@ -77,18 +77,18 @@ angular.module('myCart', ['root'])
     };
 
     // 选中事件
-    $scope.check = function($event, model, type) {
+    $scope.check = function ($event, model, type) {
       var ck = $event.target.checked;
       model.checked = ck;
       if (type === 'all') {
-        angular.forEach(model, function(v, k) {
+        angular.forEach(model, function (v, k) {
           v.checked = ck;
-          angular.forEach(v.prolist, function(d, i) {
+          angular.forEach(v.prolist, function (d, i) {
             d.checked = ck;
           });
         });
       } else if (type === 'store') {
-        angular.forEach(model.prolist, function(v, k) {
+        angular.forEach(model.prolist, function (v, k) {
           v.checked = ck;
         });
       }
@@ -97,13 +97,13 @@ angular.module('myCart', ['root'])
 
     // 选中处理
     $scope.items = 0;
-    $scope.refreshChecked = function() {
+    $scope.refreshChecked = function () {
       var items = 0,
         settle;
       // 店铺全选
-      angular.forEach($scope.stores, function(store, k) {
+      angular.forEach($scope.stores, function (store, k) {
         var storeChecked = true;
-        angular.forEach(store.prolist, function(cart, i) {
+        angular.forEach(store.prolist, function (cart, i) {
           if (cart.checked === false || cart.checked === undefined) {
             storeChecked = false;
           } else if (cart.checked === true) {
@@ -119,7 +119,7 @@ angular.module('myCart', ['root'])
 
       // 购物车全选
       var allChecked = true;
-      angular.forEach($scope.stores, function(store, k) {
+      angular.forEach($scope.stores, function (store, k) {
         if (store.checked === false || store.checked === undefined) {
           allChecked = false;
         }
@@ -128,10 +128,10 @@ angular.module('myCart', ['root'])
     };
 
     // 添加减少数量
-    $scope.cartNum = function(cart, action) {
+    $scope.cartNum = function (cart, action) {
       if (action === 'minus') {
         if (cart.number > 1) {
-          $scope.cartNumPost(cart.product._id, action, null).then(function(v) {
+          $scope.cartNumPost(cart.product._id, action, null).then(function (v) {
             if (v === true) {
               cart.number -= 1;
             }
@@ -139,7 +139,7 @@ angular.module('myCart', ['root'])
         }
       } else if (action === 'plus') {
         if (cart.number < cart.product.stock) {
-          $scope.cartNumPost(cart.product._id, action, null).then(function(v) {
+          $scope.cartNumPost(cart.product._id, action, null).then(function (v) {
             if (v === true) {
               cart.number += 1;
             }
@@ -150,19 +150,19 @@ angular.module('myCart', ['root'])
       }
 
     };
-    $scope.cartNumPost = function(pid, action, number) {
+    $scope.cartNumPost = function (pid, action, number) {
       var delay = $q.defer();
       $http.post('/student/ngcart', {
         product: pid,
         action: action,
         number: number
-      }).success(function(res) {
+      }).success(function (res) {
         delay.resolve(res);
       });
       return delay.promise;
     };
     // 数量input数值监听
-    $scope.changeNum = function(cart) {
+    $scope.changeNum = function (cart) {
       var cartNumber;
       if (cart.number < 1) {
         cartNumber = 1;
@@ -171,18 +171,18 @@ angular.module('myCart', ['root'])
       } else {
         cartNumber = cart.number;
       }
-      $scope.cartNumPost(cart.product._id, 'num', cartNumber).then(function(v) {
+      $scope.cartNumPost(cart.product._id, 'num', cartNumber).then(function (v) {
         if (v === true) {
           cart.number = cartNumber;
         }
       });
     };
     // 结算总价
-    $scope.account = function() {
+    $scope.account = function () {
       var account = 0,
         products = [];
-      angular.forEach($scope.stores, function(store, k) {
-        angular.forEach(store.prolist, function(cart, i) {
+      angular.forEach($scope.stores, function (store, k) {
+        angular.forEach(store.prolist, function (cart, i) {
           if (cart.checked === true) {
             account += cart.number * cart.product.price;
             products.push({
@@ -196,10 +196,10 @@ angular.module('myCart', ['root'])
       return account;
     };
     // 去结算
-    $scope.submit = function() {
+    $scope.submit = function () {
       var carts = [];
-      angular.forEach($scope.stores, function(store, k) {
-        angular.forEach(store.prolist, function(cart, i) {
+      angular.forEach($scope.stores, function (store, k) {
+        angular.forEach(store.prolist, function (cart, i) {
           if (cart.checked) {
             carts.push({
               product: cart.product._id,
@@ -210,32 +210,32 @@ angular.module('myCart', ['root'])
       });
       $http.post('/student/settle', {
         carts: carts
-      }).success(function(res) {
+      }).success(function (res) {
 
       });
     };
   }]);
 
 angular.module('myAddress', ['root'])
-  .controller('myAddress', function($scope, $http) {
+  .controller('myAddress', function ($scope, $http) {
     "use strict";
     $scope.addr = {};
-    $http.post('/student/area').success(function(res) {
+    $http.post('/student/area').success(function (res) {
       $scope.areas = res;
       $scope.addr.area = res[0]._id;
     });
-    $scope.getAddrs = function() {
-      $http.post('/student/address').success(function(res) {
+    $scope.getAddrs = function () {
+      $http.post('/student/address').success(function (res) {
         $scope.addrs = res;
       });
     };
     $scope.getAddrs();
 
-    $scope.submit = function() {
+    $scope.submit = function () {
       var addr = $scope.addr;
       $http.post('/student/address/save', {
         addr: addr
-      }).success(function(res) {
+      }).success(function (res) {
         $scope.addr = {
           area: $scope.addr.area
         };
@@ -243,16 +243,16 @@ angular.module('myAddress', ['root'])
         // $scope.addrs.unshift(res);
       });
     };
-    $scope.delete = function(index, id) {
+    $scope.delete = function (index, id) {
       $http.post('/student/address/delete', {
         id: id
-      }).success(function(res) {
+      }).success(function (res) {
         if (res === true) {
           $scope.addrs.splice(index, 1);
         }
       });
     };
-    $scope.edit = function(model) {
+    $scope.edit = function (model) {
       var addr = {
         _id: model._id,
         receiver: model.receiver,
@@ -266,24 +266,26 @@ angular.module('myAddress', ['root'])
   });
 
 angular.module('mySettle', ['root'])
-  .controller('mySettle', function($scope, $http) {
+  .controller('mySettle', function ($scope, $http) {
     "use strict";
-    $http.post('/student/address').success(function(res) {
+    $http.post('/student/address').success(function (res) {
       var defaultAddr = {};
-      angular.forEach(res, function(v, k) {
-        if (v.isDefault === true) {
-          defaultAddr = v;
-          defaultAddr.select = true;
-          res.splice(k, 1);
-          $scope.hasAddr = defaultAddr;
-        }
-      });
-      res.unshift(defaultAddr);
+      if (res.length > 0) {
+        angular.forEach(res, function (v, k) {
+          if (v.isDefault === true) {
+            defaultAddr = v;
+            defaultAddr.select = true;
+            res.splice(k, 1);
+            $scope.hasAddr = defaultAddr;
+          }
+        });
+        res.unshift(defaultAddr);
+      }
       $scope.addrs = res;
     });
-    $scope.select = function(model) {
+    $scope.select = function (model) {
       if (model.select !== true) {
-        angular.forEach($scope.addrs, function(v, k) {
+        angular.forEach($scope.addrs, function (v, k) {
           if (v.select === true) {
             v.select = undefined;
           }
@@ -294,7 +296,16 @@ angular.module('mySettle', ['root'])
     };
   });
 
-angular.module('myComment',['root'])
-  .controller('myComment',function ($scope) {
-    
-  });
+angular.module('myComment', ['root'])
+  .controller('myComment', ['$scope', '$http', function ($scope, $http) {
+    $scope.comment = {
+      average: undefined,
+      list: []
+    };
+    $scope.getData = function (id) {
+      if ($scope.comment.list.length !== 0) return;
+      $http.get('/product/getComments/' + id).success(function (res) {
+        $scope.comment.list = res;
+      });
+    };
+  }]);

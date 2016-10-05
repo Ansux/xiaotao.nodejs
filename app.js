@@ -1,4 +1,4 @@
-"use strict";
+// "use strict";
 
 var express = require('express');
 var path = require('path');
@@ -26,6 +26,8 @@ mongoose.connect(dbUrl);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.use(express.static('./bower_components'));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static('./assets'));
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -44,9 +46,6 @@ app.use(session({
     collection: 'sessions'
   })
 }));
-
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static('./assets'));
 
 app.locals.moment = require('moment');
 app.locals.pretty = true;

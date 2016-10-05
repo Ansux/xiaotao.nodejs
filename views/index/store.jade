@@ -1,6 +1,15 @@
 extends ../layout/student
 
 block content
+  .s-store-info
+    .media
+      .media-left
+        a(href="")
+          img(src="#{store.avatar==null?'aaa':'bbb'}", alt="#{store.name}")
+        p= store.name
+      .media-body
+        .intro= store.intro
+        .phone= store.phone
   .s-search
     .input-group
       input.form-control#inputSearch(placeholder="输入关键字搜索.",required)
@@ -17,6 +26,6 @@ block content
               .sales 销量#{item.sales}
             .row-2
               a(target="_blank",href="/product/detail/#{item._id}")=item.name
-  nav#pager(link="prolist?kw=#{kw}&",count="#{pageCount}",current="#{pageCurrent}")
+  nav#pager(link="store/#{}?",count="#{pageCount}",current="#{pageCurrent}")
 block scripts
   script(src="/javascripts/funcs.js")

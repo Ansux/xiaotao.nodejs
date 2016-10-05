@@ -10,6 +10,10 @@ var OrderitemSchema = new mongoose.Schema({
     type: ObjectId,
     ref: 'Product'
   },
+  student: {
+    type: ObjectId,
+    ref: 'Student'
+  },
   price: Number,
   number: Number,
   mark: Number,
@@ -35,6 +39,25 @@ OrderitemSchema.statics = {
         name: 1,
         oriImg: 1
       })
+      .exec(callback);
+  },
+  findByProId: function(pid, callback) {
+    return this
+      .find({
+        product: pid
+      })
+      .populate('student', {
+        email: 1
+      })
+      .exec(callback);
+  },
+  getCommentCount: function(pid, callback) {
+    return this
+      .find({
+        product: pid,
+        isCommet: true
+      })
+      .count()
       .exec(callback);
   },
   findById: function(id, callback) {

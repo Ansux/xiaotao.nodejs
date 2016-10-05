@@ -4,6 +4,9 @@ block content
   .section-settle(ng-app='mySettle',ng-controller='mySettle')
     .row.settle-addrs
       .col-xs-12.title 选择收货地址
+      .col-xs-12(ng-if="addrs.length===0")
+        .alert.alert-danger
+          a(href="/student/address") 添加收货地址
       .col-md-3.col-sm-4.col-xs-6(ng-repeat="addr in addrs")
         .thumbnail(ng-class="{'select':addr.select}",ng-click="select(addr)")
           .default-flag(ng-if='addr.isDefault') 默认地址

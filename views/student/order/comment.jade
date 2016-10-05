@@ -76,37 +76,41 @@ block content
                     textarea.form-control(name="#{item._id}[comment]", rows="6")
       .order-comment
         .row
-          label.radio-inline
-            input(type="radio",name="service",value="1")
-            | 1分
-          label.radio-inline
-            input(type="radio",name="service",value="2")
-            | 2分
-          label.radio-inline
-            input(type="radio",name="service",value="3")
-            | 3分
-          label.radio-inline
-            input(type="radio",name="service",value="4")
-            | 4分
-          label.radio-inline
-            input(type="radio",name="service",value="5")
-            | 5分
+          .mark
+            span 服务评分
+            label.radio-inline
+              input(type="radio",name="service",value="1")
+              | 1分
+            label.radio-inline
+              input(type="radio",name="service",value="2")
+              | 2分
+            label.radio-inline
+              input(type="radio",name="service",value="3")
+              | 3分
+            label.radio-inline
+              input(type="radio",name="service",value="4")
+              | 4分
+            label.radio-inline
+              input(type="radio",name="service",value="5")
+              | 5分
         .row
-          label.radio-inline
-            input(type="radio",name="delivery",value="1")
-            | 1分
-          label.radio-inline
-            input(type="radio",name="delivery",value="2")
-            | 2分
-          label.radio-inline
-            input(type="radio",name="delivery",value="3")
-            | 3分
-          label.radio-inline
-            input(type="radio",name="delivery",value="4")
-            | 4分
-          label.radio-inline
-            input(type="radio",name="delivery",value="5")
-            | 5分
+          .mark
+            span 配送评分
+            label.radio-inline
+              input(type="radio",name="delivery",value="1")
+              | 1分
+            label.radio-inline
+              input(type="radio",name="delivery",value="2")
+              | 2分
+            label.radio-inline
+              input(type="radio",name="delivery",value="3")
+              | 3分
+            label.radio-inline
+              input(type="radio",name="delivery",value="4")
+              | 4分
+            label.radio-inline
+              input(type="radio",name="delivery",value="5")
+              | 5分
         .row
           input(type="hidden", name="oid", value="#{order._id}")
           button.btn.btn-success#submit_comment(type="submit", name="button") 发表评论

@@ -35,9 +35,9 @@ ProductSchema.pre('save', function(next) {
 });
 
 ProductSchema.statics = {
-  list: function(limit, page, callback) {
+  list: function(query, limit, page, callback) {
     return this
-      .find()
+      .find(query)
       .limit(limit)
       .skip(limit * (page - 1))
       .sort({
@@ -45,9 +45,9 @@ ProductSchema.statics = {
       })
       .exec(callback);
   },
-  count: function (callback) {
+  count: function (query, callback) {
     return this
-      .find()
+      .find(query)
       .count()
       .exec(callback);
   },
